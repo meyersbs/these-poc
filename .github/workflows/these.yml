@@ -46,12 +46,11 @@ jobs:
         id: issue-text
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NUMBER: ${{ github.event.issue.number }}
         with:
           query: |
             {
-              repository(owner: "meyersbs", name: "these-poc") {
-                thisIssue: issue(number: $NUMBER) {
+              repository(owner: $owner, name: $repo) {
+                thisIssue: issue(number: $number) {
                   title
                   bodyText
                   comments(first: 10) {
@@ -64,6 +63,9 @@ jobs:
                 }
               }
             }
+          number: ${{ github.event.issue.number }}
+          owner: ${{ github.event.repository.owner.name }}
+          repo: ${{ github.event.repository.name }}
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
