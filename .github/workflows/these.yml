@@ -54,7 +54,7 @@ jobs:
 
             ${{ fromJSON(steps.count-err-issues.outputs.data).repository.issues.edges[0].node.title}}
 
-	    # Definitions
+            # Definitions
             - **Slips**: Failing to complete a properly planned step due to inattention, such as putting the wrong key in the ignition, or overlooking stakeholder requirements.
             - **Lapses**: Failing to complete a properly planned step due to memory failure, such as forgetting to put the car in reverse before backing up, or forgetting to check if a pointer is non-null before dereferencing it.
             - **Mistakes**: Planning errors that occur when the plan is inadequate, such as getting stuck in traffic because you didn't consider the impact of the bridge closing, or choosing an inadequate sorting algorithm.
