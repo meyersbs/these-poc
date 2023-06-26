@@ -54,12 +54,12 @@ jobs:
                 thisIssue: issue(number: $NUMBER) {
                   title
                   bodyText
-                  #comments(first: 10) {
-                  #  edges {
-                  #    node {
-                  #      bodyText
-                  #    }
-                  #  }
+                  comments(first: 10) {
+                    edges {
+                      node {
+                        bodyText
+                      }
+                    }
                   }
                 }
               }
