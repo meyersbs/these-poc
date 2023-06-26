@@ -41,14 +41,52 @@ jobs:
       ## docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
       #  run: |
       #    ruby -e "require 'squib';puts 'hi from squib!'"
+      - name: Query for Text
+        uses: octokit/graphql-action@v2.x
+        id: issue-text
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+        with:
+          query: |
+            {
+              repository(owner: "meyersbs", name: "these-poc") {
+                thisIssue: issue(number: $NUMBER) {
+                  title
+                  bodyText
+                  #comments(first: 10) {
+                  #  edges {
+                  #    node {
+                  #      bodyText
+                  #    }
+                  #  }
+                  }
+                }
+              }
+            }
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: mistakes
           message: |
-            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was _"not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."_
+            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was
+            
+            > _"not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."_
+
+            In other words, human errors are actions that lead to unintended, unexpected, or undesirable outcomes.
 
             Don't be shy, _everyone_ experiences human errors, and I'm not here to judge. I just want to help you learn from your human errors, so, let's get started!
+
+            # Step 0: My Assessment
+            
+            Based on the natural language description of this issue, I suspect your human error is:
+
+            > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.title}}
+            > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
+              
+            $PREDICTION
+
+            Don't worry, that's just my best guess. If that's wrong, you can use the next steps to determine what actually happened.
 
             # Step 1: Slip, Lapse, or Mistake?
 
