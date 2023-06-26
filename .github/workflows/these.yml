@@ -41,23 +41,30 @@ jobs:
       # docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
         run: |
           ruby -e "require 'squib';puts 'hi from squib!'"
-      - name: Comment PR
+      - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: mistakes
           message: |
-            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was "not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)."
+            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was "not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."
 
             Don't be shy, _everyone_ experiences human errors, and I'm not here to judge. I just want to help you learn from your human errors, so, let's get started!
 
-            First, here are some definitions for you:
+            # Step 1: Slip, Lapse, or Mistake?
 
-            # Definitions
+            There are three types of human error that we are concerned with:
             - **Slips**: Failing to complete a properly planned step due to inattention, such as putting the wrong key in the ignition, or overlooking stakeholder requirements.
             - **Lapses**: Failing to complete a properly planned step due to memory failure, such as forgetting to put the car in reverse before backing up, or forgetting to check if a pointer is non-null before dereferencing it.
             - **Mistakes**: Planning errors that occur when the plan is inadequate, such as getting stuck in traffic because you didn't consider the impact of the bridge closing, or choosing an inadequate sorting algorithm.
 
-            Alright, now that you understand slips, lapses, and mistakes, let's label your human error. Start by deciding if this issue resulted from a slip, lapse, or mistake. Once you have determined that, take a look at these human error categories and select the ones that are relevant to this issue.
+            Alright, now that you understand slips, lapses, and mistakes, let's label your human error. Start by deciding if this issue resulted from a slip, lapse, or mistake. Once you have determined that, move on to Step 2.
+
+            ---
+            These human error types come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
+
+            # Step 2: Assign Human Error Category
+            
+            Now that you've determined whether your human error was a slip, lapse, or mistake, select the human error categories below that best describe what happened.
 
             # Slips
             - [ ] S01 **Typos & Misspellings**: Typos and misspellings may occur in code comments, documentation (and other development artifacts), or when typing the name of a variable, function, or class. Examples include misspelling a variable name, writing down the wrong number/name/word during requirements elicitation, referencing the wrong function in a code comment, and inconsistent whitespace (that does not result in a syntax error).
@@ -70,14 +77,14 @@ jobs:
             - [ ] S08 **General Attentional Failure**: Only use this category if you believe your error to be the result of a lack of attention, but no other slip category fits.
 
             # Lapses
-            - [ ] L01
-            - [ ] L02
-            - [ ] L03
-            - [ ] L04
-            - [ ] L05
-            - [ ] L06
-            - [ ] L07
-            - [ ] L08
+            - [ ] L01 **Forgetting to Finish a Development Task**: Forgetting to finish a development task. Examples include forgetting to implement a required feature, forgetting to finish a user story, and forgetting to deploy a security patch.
+            - [ ] L02 **Forgetting to Fix a Defect**: Forgetting to fix a defect that you encountered, but chose not to fix right away.
+            - [ ] L03 **Forgetting to Remove Development Artifacts**: Forgetting to remove debug log files, dead code, informal test code, commented out code, test databases, backdoors, etc. Examples include leaving unnecessary code in the comments, and leaving notes in internal development documentation.
+            - [ ] L04 **Working with Outdated Source Code**: Forgetting to git-pull (or equivalent in other version control systems), or using an outdated version of a library.
+            - [ ] L05 **Forgetting an Import Statement**: Forgetting to import a necessary library, class, variable, or function, or forgetting to access a property, attribute, or argument.
+            - [ ] L06 **Forgetting to Save Work**: Forgetting to push code, or forgetting to backup/save data or documentation.
+            - [ ] L07 **Forgetting Previous Development Discussion**: Errors resulting from forgetting details from previous development discussions.
+            - [ ] L08 **General Memory Failure**: Only use this category if you believe your error to be the result of a memory failure, but no other lapse category fits.
 
             # Mistakes
             - [ ] M01
@@ -99,7 +106,4 @@ jobs:
             - [ ] Other
 
             ---
-            All "err" issues:
-
-            ${{ fromJSON(steps.count-err-issues.outputs.data).repository.issues.edges[0].node.title}}
-
+            These categories came from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
