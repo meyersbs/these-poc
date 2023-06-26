@@ -50,12 +50,14 @@ jobs:
 
             Don't be shy, _everyone_ experiences human errors, and I'm not here to judge. I just want to help you learn from your human errors, so, let's get started!
 
-            "First, here are some definitions for you:"
+            First, here are some definitions for you:
 
             # Definitions
             - **Slips**: Failing to complete a properly planned step due to inattention, such as putting the wrong key in the ignition, or overlooking stakeholder requirements.
             - **Lapses**: Failing to complete a properly planned step due to memory failure, such as forgetting to put the car in reverse before backing up, or forgetting to check if a pointer is non-null before dereferencing it.
             - **Mistakes**: Planning errors that occur when the plan is inadequate, such as getting stuck in traffic because you didn't consider the impact of the bridge closing, or choosing an inadequate sorting algorithm.
+
+            Alright, now that you understand slips, lapses, and mistakes, let's label your human error. Start by deciding if this issue resulted from a slip, lapse, or mistake. Once you have determined that, take a look at these human error categories and select the ones that are relevant to this issue.
 
             # Slips
             - [ ] S01 **Typos & Misspellings**: Typos and misspellings may occur in code comments, documentation (and other development artifacts), or when typing the name of a variable, function, or class. Examples include misspelling a variable name, writing down the wrong number/name/word during requirements elicitation, referencing the wrong function in a code comment, and inconsistent whitespace (that does not result in a syntax error).
