@@ -42,7 +42,7 @@ jobs:
       #  run: |
       #    ruby -e "require 'squib';puts 'hi from squib!'"
       - name: Query for Text
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v2.2.24
         id: issue-text
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,8 +63,8 @@ jobs:
                 }
               }
             }
-          owner: ${{ github.event.repository.owner.name }}
           variables: |
+            owner: ${{ github.event.repository.owner.name }}
             number: ${{ github.event.issue.number }}
             repo: ${{ github.event.repository.name }}
       - name: Comment on Issue
