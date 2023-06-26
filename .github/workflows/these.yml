@@ -42,12 +42,13 @@ jobs:
       #  run: |
       #    ruby -e "require 'squib';puts 'hi from squib!'"
       - name: Query for Text
-        uses: octokit/graphql-action@v2.2.24
+        uses: octokit/graphql-action@v2.x
         id: issue-text
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          query issueText($owner: ${{ github.event.repository.owner.name }}, $repo: ${{ github.event.repository.name }}, $number: ${{ github.event.issue.number }}): |
+          query :|
+            query issueText($owner:!String, $repo:!String, $number:!String)
             {
               repository(owner: $owner, name: $repo) {
                 thisIssue: issue(number: $number) {
@@ -65,6 +66,7 @@ jobs:
             }
             number: ${{ github.event.issue.number }}
             repo: ${{ github.event.repository.name }}
+            owner: ${{ github.event.repository.owner.name }}
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
