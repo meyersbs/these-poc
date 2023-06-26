@@ -46,13 +46,11 @@ jobs:
         with:
           comment_tag: mistakes
           message: |
-            :microscope: Hello, there! I'm MistakeBot.
+            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was "not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)."
 
-            This is issue ${{ github.event.issue.number }} right?
+            Don't be shy, _everyone_ experiences human errors, and I'm not here to judge. I just want to help you learn from your human errors, so, let's get started!
 
-            All "err" issues:
-
-            ${{ fromJSON(steps.count-err-issues.outputs.data).repository.issues.edges[0].node.title}}
+            "First, here are some definitions for you:"
 
             # Definitions
             - **Slips**: Failing to complete a properly planned step due to inattention, such as putting the wrong key in the ignition, or overlooking stakeholder requirements.
@@ -97,3 +95,9 @@ jobs:
             - [ ] M15
 
             - [ ] Other
+
+            ---
+            All "err" issues:
+
+            ${{ fromJSON(steps.count-err-issues.outputs.data).repository.issues.edges[0].node.title}}
+
