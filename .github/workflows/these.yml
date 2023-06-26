@@ -65,7 +65,7 @@ jobs:
             }
           number: ${{ github.event.issue.number }}
           repo: ${{ github.event.repository.name }}
-          owner: "meyersbs" #${{ github.event.repository.owner.name }}
+          owner: meyersbs
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
