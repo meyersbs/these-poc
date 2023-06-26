@@ -47,14 +47,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          query :|
-            query issueText($owner:!String, $repo:!String, $number:!String)
-            {
-              repository(owner: $owner, name: $repo) {
-                thisIssue: issue(number: $number) {
+          query: |
+            query issuetext($owner:String!, $repo:String!, $number:Int!) {
+              repository(owner:$owner, name:$repo) {
+                thisIssue: issue(number:$number) {
                   title
                   bodyText
-                  comments(first: 10) {
+                  comments(first:10) {
                     edges {
                       node {
                         bodyText
@@ -64,6 +63,7 @@ jobs:
                 }
               }
             }
+          variables: |
             number: ${{ github.event.issue.number }}
             repo: ${{ github.event.repository.name }}
             owner: ${{ github.event.repository.owner.name }}
