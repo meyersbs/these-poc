@@ -9,44 +9,44 @@ jobs:
   mistakebot:
     if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
     runs-on: ubuntu-latest
-    container:
-      image: andymeneely/squib
+    #container:
+    #image: andymeneely/squib
 
     steps:
-      - run: |
-          echo A comment on PR $NUMBER
-        env:
-          NUMBER: ${{ github.event.issue.number }}
-      - name: Query for other mistake issues
-        uses: octokit/graphql-action@v2.x
-        id: count-err-issues
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          query: |
-           {
-              repository(owner: "VulnerabilityHistoryProject", name: "vulnerability-history") {
-                issues(labels: "to-err-is-human", first: 100) {
-                  edges {
-                    node {
-                      id
-                      number
-                      title
-                    }
-                  }
-                }
-              }
-            }
-      - name: Run Squib
-      # docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
-        run: |
-          ruby -e "require 'squib';puts 'hi from squib!'"
+      #- run: |
+      #    echo A comment on PR $NUMBER
+      #  env:
+      #    NUMBER: ${{ github.event.issue.number }}
+      #- name: Query for other mistake issues
+      #  uses: octokit/graphql-action@v2.x
+      #  id: count-err-issues
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    query: |
+      #     {
+      #        repository(owner: "VulnerabilityHistoryProject", name: "vulnerability-history") {
+      #          issues(labels: "to-err-is-human", first: 100) {
+      #            edges {
+      #              node {
+      #                id
+      #                number
+      #                title
+      #              }
+      #            }
+      #          }
+      #        }
+      #      }
+      #- name: Run Squib
+      ## docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
+      #  run: |
+      #    ruby -e "require 'squib';puts 'hi from squib!'"
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: mistakes
           message: |
-            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was "not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."
+            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was _"not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."_
 
             Don't be shy, _everyone_ experiences human errors, and I'm not here to judge. I just want to help you learn from your human errors, so, let's get started!
 
@@ -60,13 +60,12 @@ jobs:
             Alright, now that you understand slips, lapses, and mistakes, let's label your human error. Start by deciding if this issue resulted from a slip, lapse, or mistake. Once you have determined that, move on to Step 2.
 
             ---
-            These human error types come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
 
             # Step 2: Assign Human Error Category
             
             Now that you've determined whether your human error was a slip, lapse, or mistake, select the human error categories below that best describe what happened.
 
-            # Slips
+            ## Slips -- Attentional Failures
             - [ ] S01 **Typos & Misspellings**: Typos and misspellings may occur in code comments, documentation (and other development artifacts), or when typing the name of a variable, function, or class. Examples include misspelling a variable name, writing down the wrong number/name/word during requirements elicitation, referencing the wrong function in a code comment, and inconsistent whitespace (that does not result in a syntax error).
             - [ ] S02 **Syntax Errors**: Any error in coding language syntax that impacts the executability of the code. Note that Logical Errors (e.g. += instead of +) are not Syntax Errors. Examples include mixing tabs and spaces (e.g. Python), unmatched brackets/braces/parenthesis/quotes, and missing semicolons (e.g. Java).
             - [ ] S03 **Overlooking Documented Information**: Errors resulting from overlooking (internally and externally) documented information, such as project descriptions, stakeholder requirements, API/library/tool/framework documentation, coding standards, programming language specifications, bug/issue reports, and looking at the wrong version of documentation or documentation for the wrong project/software.
@@ -76,7 +75,7 @@ jobs:
             - [ ] S07 **Overlooking Existing Functionality**: Errors resulting from overlooking existing functionality, such as reimplementing variables, functions, and classes that already exist, or reimplementing functionality that already exists in a standard library.
             - [ ] S08 **General Attentional Failure**: Only use this category if you believe your error to be the result of a lack of attention, but no other slip category fits.
 
-            # Lapses
+            ## Lapses -- Memory Failures
             - [ ] L01 **Forgetting to Finish a Development Task**: Forgetting to finish a development task. Examples include forgetting to implement a required feature, forgetting to finish a user story, and forgetting to deploy a security patch.
             - [ ] L02 **Forgetting to Fix a Defect**: Forgetting to fix a defect that you encountered, but chose not to fix right away.
             - [ ] L03 **Forgetting to Remove Development Artifacts**: Forgetting to remove debug log files, dead code, informal test code, commented out code, test databases, backdoors, etc. Examples include leaving unnecessary code in the comments, and leaving notes in internal development documentation.
@@ -86,24 +85,26 @@ jobs:
             - [ ] L07 **Forgetting Previous Development Discussion**: Errors resulting from forgetting details from previous development discussions.
             - [ ] L08 **General Memory Failure**: Only use this category if you believe your error to be the result of a memory failure, but no other lapse category fits.
 
-            # Mistakes
-            - [ ] M01
-            - [ ] M02
-            - [ ] M03
-            - [ ] M04
-            - [ ] M05
-            - [ ] M06
-            - [ ] M07
-            - [ ] M08
-            - [ ] M09
-            - [ ] M10
-            - [ ] M11
-            - [ ] M12
-            - [ ] M13
-            - [ ] M14
-            - [ ] M15
+            ## Mistakes -- Planning Failures
+            - [ ] M01 **Code Logic Errors**: A code logic error is one in which the code executes (i.e. actually runs), but produces an incorrect output/behavior due to incorrect logic. Examples include using incorrect operators (e.g. += instead of +), erroneous if/else statements, incorrect variable initializations, problems with variable scope, and omission of necessary logic.
+            - [ ] M02 **Incomplete Domain Knowledge**: Errors resulting from incomplete knowledge of the software system's target domain (e.g. banking, astrophysics).
+            - [ ] M03 **Wrong Assumption Errors:** Errors resulting from an incorrect assumption about system requirements, stakeholder expectations, project environments (e.g. coding languages and frameworks), library functionality, and program inputs.
+            - [ ] M04 **Internal Communication Errors**: Errors resulting from inadequate communication between development team members.
+            - [ ] M05 **External Communication Errors**: Errors resulting from inadequate communication with project stakeholders or third-party contractors.
+            - [ ] M06 **Solution Choice Errors:** Misunderstood problem-solving methods/techniques result in analyzing the problem incorrectly and choosing the wrong solution. For example, choosing to implement a database system in Python rather than using SQL. Overconfidence in a solution choice also falls under this category.
+            - [ ] M07 **Time Management Errors**: Errors resulting from a lack of time management, such as failing to allocate enough time for the implementation of a feature or procrastination.
+            - [ ] M08 **Inadequate Testing**: Failure to implement necessary test cases, failure to consider necessary test inputs, or failure to implement a certain type of testing (e.g. unit, penetration, integration) when it is necessary.
+            - [ ] M09 **Incorrect/Insufficient Configuration**: Errors in configuration of libraries/frameworks/environments or errors related to missing configuration options. Examples include misconfigured IDEs, improper directory structure for a specific programming language, and missing SSH keys.
+            - [ ] M10 **Code Complexity Errors**: Errors resulting from misunderstood code due to poor documentation or unnecessary complexity. Examples include too many nested if/else statements or for-loops and poorly named variables/functions/classes/files.
+            - [ ] M11 **Internationalization/String Encoding Errors**: Errors related to internationalization and/or string/character encoding.
+            - [ ] M12 **Inadequate Experience Errors**: Errors resulting from inadequate experience/unfamiliarity with a language, library, framework, or tool.
+            - [ ] M13 **Insufficient Tooling Access Errors**: Errors resulting from not having sufficient access to necessary tooling. Examples include not having access to a specific operating system, library, framework, hardware device, or not having the necessary permissions to complete a development task.
+            - [ ] M14 **Workflow Order Errors**: Errors resulting from working out of order, such as implementing dependent features in the wrong order, implementing code before the design is stabilized, releasing code that is not ready to be released, or skipping a workflow step.
+            - [ ] M15 **General Planning Failure**: Only use this category if you believe your error to be the result of a planning failure, but no other mistake category fits.
 
-            - [ ] Other
+            ## Other
+            - [ ] **Other**: Only use this category if none of the other categories describe your error.
 
-            ---
-            These categories came from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
+            # Notes
+            1. The human error types in **Step 1** come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
+            2. The specific categories of human error in **Step 2** come from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
