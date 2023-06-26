@@ -85,7 +85,7 @@ jobs:
 
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.title}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
-            > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges.node.bodyText}}
+            > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[0].node.bodyText}}
               
             $PREDICTION
 
