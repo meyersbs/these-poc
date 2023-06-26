@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          query: |
+          query issueText($owner: ${{ github.event.repository.owner.name }}, $repo: ${{ github.event.repository.name }}, $number: ${{ github.event.issue.number }}): |
             {
               repository(owner: $owner, name: $repo) {
                 thisIssue: issue(number: $number) {
@@ -63,8 +63,6 @@ jobs:
                 }
               }
             }
-          variables: |
-            owner: ${{ github.event.repository.owner.name }}
             number: ${{ github.event.issue.number }}
             repo: ${{ github.event.repository.name }}
       - name: Comment on Issue
