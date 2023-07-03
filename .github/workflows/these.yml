@@ -70,7 +70,7 @@ jobs:
         id: classify
         run: |
           cd /usr/src/app/
-          python3 these-classifier.py dirty precision "${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}"
+          python3 these-classifier.py dirty precision "${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
@@ -87,7 +87,7 @@ jobs:
             # Step 0: My Assessment
             
             Based on the natural language description of this issue, I suspect your human error is:
-            > ${{ steps.classify.outputs.stdout }}
+            > ${{ steps.classify.outputs }}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.title}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[0].node.bodyText}}
