@@ -73,7 +73,8 @@ jobs:
           COMMENTS_TEXT: ${{ join( fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText, ', ') }}
         run: |
           cd /usr/src/app/
-          echo "label=$(python3 these-classifier.py dirty precision '$ISSUE_TEXT')" >> $GITHUB_OUTPUT
+          echo '${{ format("{0} {1}", $ISSUE_TEXT, $COMMENTS_TEXT) }}'
+          echo "label=$(python3 these-classifier.py dirty precision '${{ format("{0} {1}", $ISSUE_TEXT, $COMMENTS_TEXT')" >> $GITHUB_OUTPUT
           #echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
@@ -155,5 +156,6 @@ jobs:
             - [ ] **Other**: Only use this category if none of the other categories describe your error.
 
             # Notes
-            1. The human error types in **Step 1** come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
-            2. The specific categories of human error in **Step 2** come from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
+            1. In **Step 0**, MistakeBot uses natural language processing ([cosine similarity with sentence-BERT](https://www.sbert.net/docs/package_reference/util.html#sentence_transformers.util.cos_sim)] to try to categorize your human error for you. This is an experimental feature and should be verified.
+            2. The human error types in **Step 1** come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
+            3. The specific categories of human error in **Step 2** come from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
