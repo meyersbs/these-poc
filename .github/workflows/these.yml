@@ -69,7 +69,9 @@ jobs:
       - name: Classify THESE
         id: classify
         run: |
-          python3 these-classifier.py dirty precision ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
+          pwd
+          ls /usr/src/app/
+          python3 these-classifier.py dirty precision "${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}"
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
