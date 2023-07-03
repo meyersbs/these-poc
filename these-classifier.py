@@ -133,6 +133,9 @@ CATEGORY_LABELS = [
 
 #### FUNCTIONS #####################################################################################
 def _maxCosine(cosine_scores):
+    """
+    Find the index of the max value in a list.
+    """
     max_index = -999
     max_value = -999
 
@@ -145,6 +148,9 @@ def _maxCosine(cosine_scores):
 
 
 def _computeEmbeddings(model, descriptions, start=0, stop=None):
+    """
+    Compute BERT embeddings for the given descriptions using the given model.
+    """
     if stop is None:
         stop = len(descriptions)
     embeddings = [
@@ -154,16 +160,25 @@ def _computeEmbeddings(model, descriptions, start=0, stop=None):
 
 
 def _computeCosineScores(text_emb, target_embs):
+    """
+    Compute cosine similarities between the text embedding and the target embeddings.
+    """
     return [ util.cos_sim(text_emb, target_emb) for target_emb in target_embs ]
 
 
 def _makePrediction(cosine_scores, labels):
+    """
+    Given a list of cosine similarity scores, make a prediction.
+    """
     max_index = _maxCosine(cosine_scores)
     label = labels[max_index]
     return label, max_index
 
 
 def _predict(model, text, start, stop, cleantext):
+    """
+    Helper function for predict(...). Does the heavy lifting.
+    """
     #### Step 0: Setup Labels
     type_labels = TYPE_LABELS
     category_labels = CATEGORY_LABELS[start:stop]
@@ -202,6 +217,9 @@ def _predict(model, text, start, stop, cleantext):
 
 
 def _cleanText(text):
+    """
+    Lowercase, remove punctuation, remove non-space whitespace, remove duplicate spaces.
+    """
     clean_text = RE_PUNCT.sub(" ", text.lower())
     clean_text = RE_WHITESPACE.sub(" ", clean_text)
     clean_text = RE_DUPLICATE_SPACES.sub(" ", clean_text)
@@ -209,6 +227,9 @@ def _cleanText(text):
 
 
 def _makeModels(cleantext, metric):
+    """
+    Determine which models to load based on command line arguments.
+    """
     best_precision_dirty = [
         ["paraphrase-multilingual-mpnet-base-v2", 128],  # Slips: 0.518
         ["distiluse-base-multilingual-cased-v1", 128],   # Lapses: 0.236
@@ -266,15 +287,36 @@ def _makeModels(cleantext, metric):
 
 
 def _readFile(text_file):
-    if os.path.exists(text_file):
-        with open(text_file, "r") as f:
-            data = f.read().replace("\n", " ")
-        return data
-    else:
-        return "NO_TEXT_TO_CLASSIFY"
+    """
+    Read in the file with text to classify.
+    """
+    with open(text_file, "r") as f:
+        data = f.read().replace("\n", " ")
+
+    return data
 
 
 def predict(cleantext, metric, text_file):
+    """
+    Make prediction based on GitHub Issue description and comment text.
+
+    Prediction uses an ensemble of three "classifiers"; one each for the "best" models based on the
+    "training" data. If the three classifiers return a majority class, then that is the
+    prediction given.
+
+    Example:
+      (1) Slip model predicts "Slip"
+      (2) Lapse model predicts "Lapse"
+      (3) Mistake model predicts "Slip"
+      Predicted Class: Slip
+
+    If there is no majority class, the class with the highest cosine similarity to the GitHub text
+    is chosen.
+
+    Along with the human error type, a category prediction is also given.
+
+    Example Output: Slip, S02: Syntax Errors
+    """
     # Models
     slips_model, lapses_model, mistakes_model = _makeModels(cleantext, metric)
 
@@ -311,11 +353,15 @@ def predict(cleantext, metric, text_file):
 #### MAIN ##########################################################################################
 def main():
     args = sys.argv[1:]
-    #print(args)
-    cleantext = args[0] # Whether or not to clean up text; "clean" or "dirty"
-    metric = args[1] # What metric to use for "best"; "precision" or "recall" or "f1"
-    #text = args[2] # Text to classify
-    text = args[2] # Filename with to classify
+    # Whether or not to clean up the text; also used for model selection. One of "clean" or "dirty".
+    cleantext = args[0]
+    assert cleantext in ["clean", "dirty"], "Argument 'cleantext' must be one of ['clean', 'dirty']"
+    # The metric to use for model selection. One of "precision", "recall", "f1".
+    metric = args[1]
+    assert metric in ["precision", "recall", "f1"], "Argument 'metric' must be one of ['precision', 'recall', 'f1']"
+    # Filename with text to classify
+    text = args[2]
+    assert os.path.exists(text), "Argument 'text' must be a valid filename"
     predict(cleantext, metric, text)
 
 
