@@ -9,8 +9,8 @@ jobs:
   mistakebot:
     if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
     runs-on: ubuntu-latest
-    #container:
-    #image: andymeneely/squib
+    container:
+      image: meyersbs/these-poc
 
     steps:
       #- run: |
@@ -66,6 +66,10 @@ jobs:
           number: ${{ github.event.issue.number }}
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
+      - name: Classify THESE
+        id: classify
+        run: |
+          python3 these-classifier.py dirty precision ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
@@ -82,7 +86,7 @@ jobs:
             # Step 0: My Assessment
             
             Based on the natural language description of this issue, I suspect your human error is:
-
+            > ${{ steps.classify.outputs.data }}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.title}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[0].node.bodyText}}
