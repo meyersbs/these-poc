@@ -87,12 +87,11 @@ jobs:
             # Step 0: My Assessment
             
             Based on the natural language description of this issue, I suspect your human error is:
-            > ${{ steps.classify.outputs }}
+            > ${{ steps.classify.outputs.label }}
+            
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.title}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}
             > ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[0].node.bodyText}}
-              
-            $PREDICTION
 
             Don't worry, that's just my best guess. If that's wrong, you can use the next steps to determine what actually happened.
 
