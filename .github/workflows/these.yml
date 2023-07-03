@@ -13,34 +13,6 @@ jobs:
       image: meyersbs/these-poc:main
 
     steps:
-      #- run: |
-      #    echo A comment on PR $NUMBER
-      #  env:
-      #    NUMBER: ${{ github.event.issue.number }}
-      #- name: Query for other mistake issues
-      #  uses: octokit/graphql-action@v2.x
-      #  id: count-err-issues
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  with:
-      #    query: |
-      #     {
-      #        repository(owner: "VulnerabilityHistoryProject", name: "vulnerability-history") {
-      #          issues(labels: "to-err-is-human", first: 100) {
-      #            edges {
-      #              node {
-      #                id
-      #                number
-      #                title
-      #              }
-      #            }
-      #          }
-      #        }
-      #      }
-      #- name: Run Squib
-      ## docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
-      #  run: |
-      #    ruby -e "require 'squib';puts 'hi from squib!'"
       - name: Query for Text
         uses: octokit/graphql-action@v2.x
         id: issue-text
@@ -74,10 +46,8 @@ jobs:
           TEXT: ${{ format('{0} {1}', fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText, join( fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText, ', ')) }}
         run: |
           cd /usr/src/app/
-          #echo $ISSUE_TEXT
-          #echo $COMMENTS_TEXT
-          #echo $TEXT
-          echo "label=$(python3 these-classifier.py dirty precision '$TEXT'" >> $GITHUB_OUTPUT
+          echo $TEXT > text_to_classify.txt
+          echo "label=$(python3 these-classifier.py dirty precision text_to_classify.txt)" >> $GITHUB_OUTPUT
           #echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #### PYTHON IMPORTS ################################################################################
+import os
 import re
 import sys
 
@@ -162,25 +163,36 @@ def _makePrediction(cosine_scores, labels):
     return label, max_index
 
 
-def _predict(model, text, start, stop):
+def _predict(model, text, start, stop, cleantext):
     #### Step 0: Setup Labels
     type_labels = TYPE_LABELS
     category_labels = CATEGORY_LABELS[start:stop]
 
-    #### Step 1: Compute Embeddings
-    text_embedding = model.encode(text, convert_to_tensor=True)
-    type_embeddings = _computeEmbeddings(model, TYPE_DESCRIPTIONS)
-    category_embeddings = _computeEmbeddings(model, CATEGORY_DESCRIPTIONS, start, stop)
+    type_descriptions = list()
+    category_descriptions = list()
+    #### Step 1: Clean Text
+    if cleantext == "clean":
+        text = _cleanText(text)
+        type_descriptions = [ _cleanText(descr) for descr in TYPE_DESCRIPTIONS ]
+        category_descriptions = [ _cleanText(descr) for descr in CATEGORY_DESCRIPTIONS ]
+    else:
+        type_descriptions = TYPE_DESCRIPTIONS.copy()
+        category_descriptions = CATEGORY_DESCRIPTIONS.copy()
 
-    #### Step 2: Compute Cosine Similarities
+    #### Step 2: Compute Embeddings
+    text_embedding = model.encode(text, convert_to_tensor=True)
+    type_embeddings = _computeEmbeddings(model, type_descriptions)
+    category_embeddings = _computeEmbeddings(model, category_descriptions, start, stop)
+
+    #### Step 3: Compute Cosine Similarities
     type_cosine_scores = _computeCosineScores(text_embedding, type_embeddings)
     category_cosine_scores = _computeCosineScores(text_embedding, category_embeddings)
 
-    #### Step 3: Make Predictions
+    #### Step 4: Make Predictions
     type_label, type_index = _makePrediction(type_cosine_scores, type_labels)
     category_label, category_index = _makePrediction(category_cosine_scores, category_labels)
 
-    #### Step 4: Results
+    #### Step 5: Results
     results = [
         [type_label, type_cosine_scores[type_index]],            # Type w/ Cosine
         [category_label, category_cosine_scores[category_index]] # Category w/ Cosine
@@ -253,18 +265,25 @@ def _makeModels(cleantext, metric):
     return slips_model, lapses_model, mistakes_model
 
 
-def predict(cleantext, metric, text):
+def _readFile(text_file):
+    if os.path.exists(text_file):
+        with open(text_file, "r") as f:
+            data = f.read().replace("\n", " ")
+        return data
+    else:
+        return "NO_TEXT_TO_CLASSIFY"
+
+
+def predict(cleantext, metric, text_file):
     # Models
     slips_model, lapses_model, mistakes_model = _makeModels(cleantext, metric)
 
-    # Predictions
-    slip_predictions = _predict(slips_model, text, 0, 8)
-    lapse_predictions = _predict(lapses_model, text, 8, 16)
-    mistake_predictions = _predict(mistakes_model, text, 16, 31)
+    text = _readFile(text_file)
 
-    #print(slip_predictions)
-    #print(lapse_predictions)
-    #print(mistake_predictions)
+    # Predictions
+    slip_predictions = _predict(slips_model, text, 0, 8, cleantext)
+    lapse_predictions = _predict(lapses_model, text, 8, 16, cleantext)
+    mistake_predictions = _predict(mistakes_model, text, 16, 31, cleantext)
 
     # Type Prediction Logic
     type_preds = [ slip_predictions[0][0], lapse_predictions[0][0], mistake_predictions[0][0] ]
@@ -295,7 +314,8 @@ def main():
     #print(args)
     cleantext = args[0] # Whether or not to clean up text; "clean" or "dirty"
     metric = args[1] # What metric to use for "best"; "precision" or "recall" or "f1"
-    text = args[2] # Text to classify
+    #text = args[2] # Text to classify
+    text = args[2] # Filename with to classify
     predict(cleantext, metric, text)
 
 

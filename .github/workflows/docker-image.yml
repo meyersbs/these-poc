@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-    paths: [ ".github/workflows/docker-image.yml" ]
+    paths: [ ".github/workflows/docker-image.yml", "Dockerfile", "these-classifier.py" ]
 
 jobs:
   build:
