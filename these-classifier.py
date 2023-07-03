@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #### PYTHON IMPORTS ################################################################################
+import re
 import sys
 
 
@@ -9,6 +10,10 @@ from sentence_transformers import SentenceTransformer, util
 
 
 #### GLOBALS #######################################################################################
+RE_PUNCT = re.compile(r"[\.,:;?!]")
+RE_WHITESPACE = re.compile(r"[\n\r\t\v\f]") # everything but regular spaces
+RE_DUPLICATE_SPACES = re.compile(r"[\s]+")
+
 TYPE_DESCRIPTIONS = [
     # Slip
     "Typos and misspellings may occur in code comments, documentation (and other development artifacts), or when typing the name of a variable, function, or class. Examples include misspelling a variable name, writing down the wrong number/name/word during requirements elicitation, referencing the wrong function in a code comment, and inconsistent whitespace (that does not result in a syntax error). Any error in coding language syntax that impacts the executability of the code. Note that Logical Errors (e.g. += instead of +) are not Syntax Errors. Examples include mixing tabs and spaces (e.g. Python), unmatched brackets/braces/parenthesis/quotes, and missing semicolons (e.g. Java). Errors resulting from overlooking (internally and externally) documented information, such as project descriptions, stakeholder requirements, API/library/tool/framework documentation, coding standards, programming language specifications, bug/issue reports, and looking at the wrong version of documentation or documentation for the wrong project/software. Errors resulting from multitasking. Attention failures while using computer peripherals, such as mice, keyboard, and cables. Examples include copy/paste errors, clicking the wrong button, using the wrong keyboard shortcut, and incorrectly plugging in cables. Errors resulting from lack of attention during formal/informal code review. Errors resulting from overlooking existing functionality, such as reimplementing variables, functions, and classes that already exist, or reimplementing functionality that already exists in a standard library. Only use this category if you believe your error to be the result of a lack of attention, but no other slip category fits.",
@@ -87,7 +92,7 @@ CATEGORY_DESCRIPTIONS = [
     # M15
     "Only use this category if you believe your error to be the result of a planning failure, but no other mistake category fits."
 ]
-CATEGORY_DESCRIPTIONS = [
+CATEGORY_LABELS = [
     "S01: Typos & Mispellings",
     "S02: Syntax Errors",
     "S03: Overlooking Documented Information",
@@ -126,20 +131,172 @@ CATEGORY_DESCRIPTIONS = [
 
 
 #### FUNCTIONS #####################################################################################
-def predictMistakes(text):
-    # Setup best mistakes model
-    model = SentenceTransformers("paraphrase-multilingual-mpnet-base-v2")
-    model.max_seq_length = 128
+def _maxCosine(cosine_scores):
+    max_index = -999
+    max_value = -999
 
-    # Setup data and labels
-    labels = ["NOPE", "NOPE", "MISTAKE"]
+    for i in range(0, len(cosine_scores)):
+        if cosine_scores[i] >= max_value:
+            max_value = cosine_scores[i]
+            max_index = i
+
+    return max_index
 
 
+def _computeEmbeddings(model, descriptions, start=0, stop=None):
+    if stop is None:
+        stop = len(descriptions)
+    embeddings = [
+        model.encode(descr, convert_to_tensor=True) for descr in descriptions[start:stop]
+    ]
+    return embeddings
+
+
+def _computeCosineScores(text_emb, target_embs):
+    return [ util.cos_sim(text_emb, target_emb) for target_emb in target_embs ]
+
+
+def _makePrediction(cosine_scores, labels):
+    max_index = _maxCosine(cosine_scores)
+    label = labels[max_index]
+    return label, max_index
+
+
+def _predict(model, text, start, stop):
+    #### Step 0: Setup Labels
+    type_labels = TYPE_LABELS
+    category_labels = CATEGORY_LABELS[start:stop]
+
+    #### Step 1: Compute Embeddings
+    text_embedding = model.encode(text, convert_to_tensor=True)
+    type_embeddings = _computeEmbeddings(model, TYPE_DESCRIPTIONS)
+    category_embeddings = _computeEmbeddings(model, CATEGORY_DESCRIPTIONS, start, stop)
+
+    #### Step 2: Compute Cosine Similarities
+    type_cosine_scores = _computeCosineScores(text_embedding, type_embeddings)
+    category_cosine_scores = _computeCosineScores(text_embedding, category_embeddings)
+
+    #### Step 3: Make Predictions
+    type_label, type_index = _makePrediction(type_cosine_scores, type_labels)
+    category_label, category_index = _makePrediction(category_cosine_scores, category_labels)
+
+    #### Step 4: Results
+    results = [
+        [type_label, type_cosine_scores[type_index]],            # Type w/ Cosine
+        [category_label, category_cosine_scores[category_index]] # Category w/ Cosine
+    ]
+
+    return results
+
+
+def _cleanText(text):
+    clean_text = RE_PUNCT.sub(" ", text.lower())
+    clean_text = RE_WHITESPACE.sub(" ", clean_text)
+    clean_text = RE_DUPLICATE_SPACES.sub(" ", clean_text)
+    return clean_text
+
+
+def _makeModels(cleantext, metric):
+    best_precision_dirty = [
+        ["paraphrase-multilingual-mpnet-base-v2", 128],  # Slips: 0.518
+        ["distiluse-base-multilingual-cased-v1", 128],   # Lapses: 0.236
+        ["paraphrase-multilingual-mpnet-base-v2", 128]   # Mistakes: 0.825
+    ]
+    best_recall_dirty = [
+        ["all-mpnet-base-v2", 384],                      # Slips: 0.711
+        ["jhgan/ko-sroberta-multitask", 512],            # Lapses: 0.915
+        ["nikcheerla/nooks-amd-detection-realtime", 512] # Mistakes: 0.603
+    ]
+    best_f1_dirty = [
+        ["paraphrase-multilingual-mpnet-base-v2", 128],  # Slips: 0.484
+        ["distiluse-base-multilingual-cased-v1", 128],   # Lapses: 0.341
+        ["nikcheerla/nooks-amd-detection-realtime", 512] # Mistakes: 0.655
+    ]
+    best_precision_clean = [
+        ["paraphrase-MiniLM-L3-v2", 128],                # Slips: 0.531
+        ["distiluse-base-multilingual-cased-v1", 128],   # Lapses: 0.224
+        ["nikcheerla/nooks-amd-detection-v2-full", 512]  # Mistakes: 0.816
+    ]
+    best_recall_clean = [
+        ["multi-qa-distilbert-cos-v1", 512],             # Slips: 0.701
+        ["nikcheerla/nooks-amd-detection-v2-full", 512], # Lapses: 0.851
+        ["paraphrase-albert-small-v2", 256]              # Mistakes: 0.362
+    ]
+    best_f1_clean = [
+        ["all-mpnet-base-v2", 384],                      # Slips: 0.466
+        ["distiluse-base-multilingual-cased-v2", 128],   # Lapses: 0.332 
+        ["paraphrase-albert-small-v2", 256]              # Mistakes: 0.474
+    ]
+
+    models_dict = {
+        "dirty": {
+            "precision": best_precision_dirty,
+            "recall": best_recall_dirty,
+            "f1": best_f1_dirty
+        },
+        "clean": {
+            "precision": best_precision_clean,
+            "recall": best_recall_clean,
+            "f1": best_f1_clean
+        }
+    }
+
+    best_models = models_dict[cleantext][metric]
+    
+    slips_model = SentenceTransformer(best_models[0][0])
+    slips_model.seq_length = best_models[0][1]
+    lapses_model = SentenceTransformer(best_models[1][0])
+    lapses_model.seq_length = best_models[1][1]
+    mistakes_model = SentenceTransformer(best_models[2][0])
+    mistakes_model.seq_length = best_models[2][1]
+
+    return slips_model, lapses_model, mistakes_model
+
+
+def predict(cleantext, metric, text):
+    # Models
+    slips_model, lapses_model, mistakes_model = _makeModels(cleantext, metric)
+
+    # Predictions
+    slip_predictions = _predict(slips_model, text, 0, 8)
+    lapse_predictions = _predict(lapses_model, text, 8, 16)
+    mistake_predictions = _predict(mistakes_model, text, 16, 31)
+
+    #print(slip_predictions)
+    #print(lapse_predictions)
+    #print(mistake_predictions)
+
+    # Type Prediction Logic
+    type_preds = [ slip_predictions[0][0], lapse_predictions[0][0], mistake_predictions[0][0] ]
+    counts = [ type_preds.count("Slip"), type_preds.count("Lapse"), type_preds.count("Mistake") ]
+    # If Slips greater than Lapses and Mistakes
+    if counts[0] > counts[1] and counts[0] > counts[2]:
+        print("{}, {}".format(slip_predictions[0][0], slip_predictions[1][0]))
+    # If Lapses greater than Slips and Mistakes
+    elif counts[1] > counts[0] and counts[1] > counts[2]:
+        print("{}, {}".format(lapse_predictions[0][0], lapse_predictions[1][0]))
+    # If Mistakes greater than Slips and Lapses
+    elif counts[2] > counts[0] and counts[2] > counts[1]:
+        print("{}, {}".format(mistake_predictions[0][0], mistake_predictions[1][0]))
+    # If they all occur equally, take the one with highest cosine similarity
+    else:
+        type_pred, max_index = _makePrediction(counts, TYPE_LABELS)
+        if type_pred == "Slip":
+            print("{}, {}".format(type_pred, slip_predictions[1][0]))
+        elif type_pred == "Lapse":
+            print("{}, {}".format(type_pred, lapse_predictions[1][0]))
+        elif type_pred == "Mistake":
+            print("{}, {}".format(type_pred, mistake_predictions[1][0]))
 
 
 #### MAIN ##########################################################################################
 def main():
     args = sys.argv[1:]
+    #print(args)
+    cleantext = args[0] # Whether or not to clean up text; "clean" or "dirty"
+    metric = args[1] # What metric to use for "best"; "precision" or "recall" or "f1"
+    text = args[2] # Text to classify
+    predict(cleantext, metric, text)
 
 
 if __name__ == "__main__":
