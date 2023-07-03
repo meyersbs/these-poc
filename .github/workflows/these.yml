@@ -70,7 +70,7 @@ jobs:
         id: classify
         run: |
           cd /usr/src/app/
-          python3 these-classifier.py dirty precision "${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}" >> $GITHUB_OUTPUT
+          echo "{label}={$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')}" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
