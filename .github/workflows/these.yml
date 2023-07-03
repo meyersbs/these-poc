@@ -74,7 +74,7 @@ jobs:
         run: |
           cd /usr/src/app/
           echo '${{ format("{0} {1}", $ISSUE_TEXT, $COMMENTS_TEXT) }}'
-          echo "label=$(python3 these-classifier.py dirty precision '${{ format("{0} {1}", $ISSUE_TEXT, $COMMENTS_TEXT')" >> $GITHUB_OUTPUT
+          echo "label=$(python3 these-classifier.py dirty precision '${{ format("{0} {1}", $ISSUE_TEXT, $COMMENTS_TEXT) }}'" >> $GITHUB_OUTPUT
           #echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
