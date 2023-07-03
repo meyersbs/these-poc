@@ -3,8 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths: [ ".github/workflows/docker-image.yml" ]
 
 jobs:
 
@@ -23,4 +22,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag meyersbs/$(date +%s)
     - name: Docker Push
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
       run: docker push ${{secrets.DOCKER_USER}}/these-poc
