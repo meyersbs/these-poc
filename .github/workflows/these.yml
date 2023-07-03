@@ -68,9 +68,13 @@ jobs:
           owner: meyersbs
       - name: Classify THESE
         id: classify
+        env:
+          ISSUE_TEXT: ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText }}
+          COMMENTS_TEXT: ${{ join(fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText), ", ") }}
         run: |
           cd /usr/src/app/
-          echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
+          echo "label=$(python3 these-classifier.py dirty precision '$ISSUE_TEXT')" >> $GITHUB_OUTPUT
+          #echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
