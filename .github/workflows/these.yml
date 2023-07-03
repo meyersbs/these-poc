@@ -83,7 +83,7 @@ jobs:
             
             Now that you've determined whether your human error was a slip, lapse, or mistake, select the human error categories below that best describe what happened.
 
-            ## Slips -- Attentional Failures
+            ## Slips (Attentional Failures)
             - [ ] S01 **Typos & Misspellings**: Typos and misspellings may occur in code comments, documentation (and other development artifacts), or when typing the name of a variable, function, or class. Examples include misspelling a variable name, writing down the wrong number/name/word during requirements elicitation, referencing the wrong function in a code comment, and inconsistent whitespace (that does not result in a syntax error).
             - [ ] S02 **Syntax Errors**: Any error in coding language syntax that impacts the executability of the code. Note that Logical Errors (e.g. += instead of +) are not Syntax Errors. Examples include mixing tabs and spaces (e.g. Python), unmatched brackets/braces/parenthesis/quotes, and missing semicolons (e.g. Java).
             - [ ] S03 **Overlooking Documented Information**: Errors resulting from overlooking (internally and externally) documented information, such as project descriptions, stakeholder requirements, API/library/tool/framework documentation, coding standards, programming language specifications, bug/issue reports, and looking at the wrong version of documentation or documentation for the wrong project/software.
@@ -93,7 +93,7 @@ jobs:
             - [ ] S07 **Overlooking Existing Functionality**: Errors resulting from overlooking existing functionality, such as reimplementing variables, functions, and classes that already exist, or reimplementing functionality that already exists in a standard library.
             - [ ] S08 **General Attentional Failure**: Only use this category if you believe your error to be the result of a lack of attention, but no other slip category fits.
 
-            ## Lapses -- Memory Failures
+            ## Lapses (Memory Failures)
             - [ ] L01 **Forgetting to Finish a Development Task**: Forgetting to finish a development task. Examples include forgetting to implement a required feature, forgetting to finish a user story, and forgetting to deploy a security patch.
             - [ ] L02 **Forgetting to Fix a Defect**: Forgetting to fix a defect that you encountered, but chose not to fix right away.
             - [ ] L03 **Forgetting to Remove Development Artifacts**: Forgetting to remove debug log files, dead code, informal test code, commented out code, test databases, backdoors, etc. Examples include leaving unnecessary code in the comments, and leaving notes in internal development documentation.
@@ -103,7 +103,7 @@ jobs:
             - [ ] L07 **Forgetting Previous Development Discussion**: Errors resulting from forgetting details from previous development discussions.
             - [ ] L08 **General Memory Failure**: Only use this category if you believe your error to be the result of a memory failure, but no other lapse category fits.
 
-            ## Mistakes -- Planning Failures
+            ## Mistakes (Planning Failures)
             - [ ] M01 **Code Logic Errors**: A code logic error is one in which the code executes (i.e. actually runs), but produces an incorrect output/behavior due to incorrect logic. Examples include using incorrect operators (e.g. += instead of +), erroneous if/else statements, incorrect variable initializations, problems with variable scope, and omission of necessary logic.
             - [ ] M02 **Incomplete Domain Knowledge**: Errors resulting from incomplete knowledge of the software system's target domain (e.g. banking, astrophysics).
             - [ ] M03 **Wrong Assumption Errors:** Errors resulting from an incorrect assumption about system requirements, stakeholder expectations, project environments (e.g. coding languages and frameworks), library functionality, and program inputs.
