@@ -720,11 +720,10 @@ jobs:
           owner: meyersbs
       - name: Comment Finished
         uses: thollander/actions-comment-pull-request@v2
-        if: ${{ steps.regex-match-Finished.outputs.match == 'Finished' }}
+        #if: ${{ steps.regex-match-Finished.outputs.match == 'Finished' }}
         id: comment-finished
         env:
-          #LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
-          LABELS: ${{ fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.*.name }}
+          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
         with:
           comment_tag: assessment
           message: |
