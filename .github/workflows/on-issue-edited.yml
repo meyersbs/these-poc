@@ -685,3 +685,35 @@ jobs:
         with:
           labels: |
             Other (Human Error)
+            
+      # Finished
+      - name: Search Finished
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-Finished
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (Finished)
+          flags: gm
+      - name: Query Labels
+        uses: octokit/graphql-action@v2.x
+        id: query-labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query issuetext($owner:String!, $repo:String!, $number:Int!) {
+              repository(owner:$owner, name:$repo) {
+                thisIssue: issue(number:$number) {
+                  labels
+                }
+              }
+            }
+          number: ${{ github.event.issue.number }}
+          repo: ${{ github.event.repository.name }}
+          owner: meyersbs
+      - name: Format Labels
+        id: format-labels
+        env:
+          LABELS: ${{ fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels }}
+        run: |
+          echo $LABELS
