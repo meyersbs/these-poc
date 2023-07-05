@@ -19,13 +19,19 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S01)
           flags: gm
-      - name: Label S01
+      - name: Add Label S01
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S01.outputs.group1 == 'S01' }}
         with:
           labels: |
             Typos & Misspellings (Human Error S01)
             Slip (Failure of Attention)
+      - name: Remove Label S01
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S01.outputs.group1 != 'S01' }}
+        with:
+          labels: |
+            Typos & Misspellings (HE S01)
           
       - name: Search S02
         uses: actions-ecosystem/action-regex-match@v2
