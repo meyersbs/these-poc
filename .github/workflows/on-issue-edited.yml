@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           query: |
-            query historyS02() {
+            query historyS02 {
               search(type:ISSUE, last:10, query:"repo:meyersbs/these-poc label:\"Syntax Errors (HE S02)\"") {
                 edges {
                   node {
