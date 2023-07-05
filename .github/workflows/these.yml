@@ -7,7 +7,9 @@ on:
 
 jobs:
   mistakebot:
-    if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
+    if: |
+      contains( github.event.issue.labels.*.name, 'to-err-is-human') &&
+      github.event.issue.state == 'open'
     runs-on: ubuntu-latest
     container:
       image: meyersbs/these-poc:main
