@@ -679,7 +679,7 @@ jobs:
         with:
           labels: |
             Other (Human Error)
-      - name: Remove Label M18
+      - name: Remove Label Other
         uses: actions-ecosystem/action-remove-labels@v1
         if: ${{ steps.regex-match-Other.outputs.group1 == '' }}
         with:
