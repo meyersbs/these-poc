@@ -1,0 +1,27 @@
+name: T.H.E.S.E. MistakeBot (Case Closed)
+
+on:
+  issues:
+    types:
+      - closed
+
+jobs:
+  mistakebot:
+    if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
+    runs-on: ubuntu-latest
+    container:
+      image: meyersbs/these-poc:main
+
+    steps:
+      - name: Closing Remarks
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: finished
+          message: |
+            :microscope: Congratulations on assessing your human errors!
+            
+            If you wish to keep using **MistakeBot**, just add the `to-err-is-human` label to any issue get started.
+            
+            > _"Mistakes are the portals of discovery."_ ~ James Joyce
+            
+            > _"The only real mistake is the one from which we learn nothing."_ ~ Henry Ford
