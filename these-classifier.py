@@ -332,13 +332,13 @@ def predict(cleantext, metric, text_file):
     counts = [ type_preds.count("Slip"), type_preds.count("Lapse"), type_preds.count("Mistake") ]
     # If Slips greater than Lapses and Mistakes
     if counts[0] > counts[1] and counts[0] > counts[2]:
-        print("{}, {}".format(slip_predictions[0][0], slip_predictions[1][0]))
+        print("{}, {}".format("Slip", slip_predictions[1][0]))
     # If Lapses greater than Slips and Mistakes
     elif counts[1] > counts[0] and counts[1] > counts[2]:
-        print("{}, {}".format(lapse_predictions[0][0], lapse_predictions[1][0]))
+        print("{}, {}".format("Lapse", lapse_predictions[1][0]))
     # If Mistakes greater than Slips and Lapses
     elif counts[2] > counts[0] and counts[2] > counts[1]:
-        print("{}, {}".format(mistake_predictions[0][0], mistake_predictions[1][0]))
+        print("{}, {}".format("Mistake", mistake_predictions[1][0]))
     # If they all occur equally, take the one with highest cosine similarity
     else:
         type_pred, max_index = _makePrediction(counts, TYPE_LABELS)
