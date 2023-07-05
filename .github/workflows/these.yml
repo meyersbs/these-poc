@@ -41,8 +41,8 @@ jobs:
       - name: Classify THESE
         id: classify
         env:
-          ISSUE_TEXT: ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText }}
-          COMMENTS_TEXT: ${{ join( fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText, ', ') }}
+          #ISSUE_TEXT: ${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText }}
+          #COMMENTS_TEXT: ${{ join( fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText, ', ') }}
           TEXT: ${{ format('{0} {1}', fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText, join( fromJSON(steps.issue-text.outputs.data).repository.thisIssue.comments.edges[*].node.bodyText, ', ')) }}
         run: |
           cd /usr/src/app/
