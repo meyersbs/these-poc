@@ -348,3 +348,340 @@ jobs:
         with:
           labels: |
             General Memory Failure (HE L08)
+
+      # Mistakes
+      - name: Search M01
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M01
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M01)
+          flags: gm
+      - name: Add Label M01
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M01.outputs.group1 == 'M01' }}
+        with:
+          labels: |
+            Code Logic Errors (HE M01)
+            Mistake (Failure of Planning)
+      - name: Remove Label M01
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M01.outputs.group1 == '' }}
+        with:
+          labels: |
+            Code Logic Errors (HE M01)
+          
+      - name: Search M02
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M02
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M02)
+          flags: gm
+      - name: Add Label M02
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M02.outputs.group1 == 'M02' }}
+        with:
+          labels: |
+            Incomplete Domain Knowledge (HE M02)
+            Mistake (Failure of Planning)
+      - name: Remove Label M02
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M02.outputs.group1 == '' }}
+        with:
+          labels: |
+            Incomplete Domain Knowledge (HE M02)
+    
+      - name: Search M03
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M03
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M03)
+          flags: gm
+      - name: Add Label M03
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M03.outputs.group1 == 'M03' }}
+        with:
+          labels: |
+            Wrong Assumption Errors (HE M03)
+            Mistake (Failure of Planning)
+      - name: Remove Label M03
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M03.outputs.group1 == '' }}
+        with:
+          labels: |
+            Wrong Assumption Errors (HE M03)
+          
+      - name: Search M04
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M04
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M04)
+          flags: gm
+      - name: Add Label M04
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M04.outputs.group1 == 'M04' }}
+        with:
+          labels: |
+            Internal Communication Errors (HE M04)
+            Mistake (Failure of Planning)
+      - name: Remove Label M04
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M04.outputs.group1 == '' }}
+        with:
+          labels: |
+            Internal Communication Errors (HE M04)
+          
+      - name: Search M05
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M05
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M05)
+          flags: gm
+      - name: Add Label M05
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M05.outputs.group1 == 'M05' }}
+        with:
+          labels: |
+            External Communication Errors (HE M05)
+            Mistake (Failure of Planning)
+      - name: Remove Label M05
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M05.outputs.group1 == '' }}
+        with:
+          labels: |
+            External Communication Errors (HE M05)
+          
+      - name: Search M06
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M06
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M06)
+          flags: gm
+      - name: Add Label M06
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M06.outputs.group1 == 'M06' }}
+        with:
+          labels: |
+            Solution Choice Errors (HE M06)
+            Mistake (Failure of Planning)
+      - name: Remove Label M06
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M06.outputs.group1 == '' }}
+        with:
+          labels: |
+            Solution Choice Errors (HE M06)
+          
+      - name: Search M07
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M07
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M07)
+          flags: gm
+      - name: Add Label M07
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M07.outputs.group1 == 'M07' }}
+        with:
+          labels: |
+            Time Management Errors (HE M07)
+            Mistake (Failure of Planning)
+      - name: Remove Label M07
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M07.outputs.group1 == '' }}
+        with:
+          labels: |
+            Time Management Errors (HE M07)
+          
+      - name: Search M08
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M08
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M08)
+          flags: gm
+      - name: Add Label M08
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M08.outputs.group1 == 'M08' }}
+        with:
+          labels: |
+            Inadequate Testing (HE M08)
+            Mistake (Failure of Planning)
+      - name: Remove Label M08
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M08.outputs.group1 == '' }}
+        with:
+          labels: |
+            Inadequate Testing (HE M08)
+            
+      - name: Search M09
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M09
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M09)
+          flags: gm
+      - name: Add Label M09
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M09.outputs.group1 == 'M09' }}
+        with:
+          labels: |
+            Incorrect/Insufficient Configuration (HE M09)
+            Mistake (Failure of Planning)
+      - name: Remove Label M08
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M09.outputs.group1 == '' }}
+        with:
+          labels: |
+            Incorrect/Insufficient Configuration (HE M09)
+            
+      - name: Search M10
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M10
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M10)
+          flags: gm
+      - name: Add Label M10
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M10.outputs.group1 == 'M10' }}
+        with:
+          labels: |
+            Code Complexity Errors (HE M10)
+            Mistake (Failure of Planning)
+      - name: Remove Label M18
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M10.outputs.group1 == '' }}
+        with:
+          labels: |
+            Code Complexity Errors (HE M10)
+            
+      - name: Search M11
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M11
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M11)
+          flags: gm
+      - name: Add Label M11
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M11.outputs.group1 == 'M11' }}
+        with:
+          labels: |
+            I18N/String Encoding Errors (HE M11)
+            Mistake (Failure of Planning)
+      - name: Remove Label M11
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M11.outputs.group1 == '' }}
+        with:
+          labels: |
+            I18N/String Encoding Errors (HE M11)
+          
+      - name: Search M12
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M12
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M12)
+          flags: gm
+      - name: Add Label M12
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M12.outputs.group1 == 'M12' }}
+        with:
+          labels: |
+            Inadequate Experience Errors (HE M12)
+            Mistake (Failure of Planning)
+      - name: Remove Label M12
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M12.outputs.group1 == '' }}
+        with:
+          labels: |
+            Inadequate Experience Errors (HE M12)
+    
+      - name: Search M13
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M13
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M13)
+          flags: gm
+      - name: Add Label M13
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M13.outputs.group1 == 'M13' }}
+        with:
+          labels: |
+            Insufficient Tooling Access Errors (HE M13)
+            Mistake (Failure of Planning)
+      - name: Remove Label M13
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M13.outputs.group1 == '' }}
+        with:
+          labels: |
+            Insufficient Tooling Access Errors (HE M13)
+          
+      - name: Search M14
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M14
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M14)
+          flags: gm
+      - name: Add Label M14
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M14.outputs.group1 == 'M14' }}
+        with:
+          labels: |
+            Workflow Order Errors (HE M14)
+            Mistake (Failure of Planning)
+      - name: Remove Label M14
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M14.outputs.group1 == '' }}
+        with:
+          labels: |
+            Workflow Order Errors (HE M14)
+          
+      - name: Search M15
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-M15
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (M15)
+          flags: gm
+      - name: Add Label M15
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M15.outputs.group1 == 'M15' }}
+        with:
+          labels: |
+            General Planning Failure (HE M15)
+            Mistake (Failure of Planning)
+      - name: Remove Label M15
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-M15.outputs.group1 == '' }}
+        with:
+          labels: |
+            General Planning Failure (HE M15)
+            
+      # Other
+      - name: Search Other
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-Other
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (Other)
+          flags: gm
+      - name: Add Label Other
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-M10.outputs.group1 == 'Other' }}
+        with:
+          labels: |
+            Other (Human Error)
+      - name: Remove Label M18
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-Other.outputs.group1 == '' }}
+        with:
+          labels: |
+            Other (Human Error)
