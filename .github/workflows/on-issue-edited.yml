@@ -24,7 +24,7 @@ jobs:
         if: ${{ steps.regex-match-S01.outputs.group1 == 'S01' }}
         with:
           labels: |
-            Typos & Misspellings (Human Error S01)
+            Typos & Misspellings (HE S01)
             Slip (Failure of Attention)
       - name: Remove Label S01
         uses: actions-ecosystem/action-remove-labels@v1
@@ -40,12 +40,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S02)
           flags: gm
-      - name: Label S02
+      - name: Add Label S02
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S02.outputs.group1 == 'S02' }}
         with:
           labels: |
-            Syntax Errors (Human Error S02)
+            Syntax Errors (HE S02)
             Slip (Failure of Attention)
     
       - name: Search S03
@@ -55,12 +55,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S03)
           flags: gm
-      - name: Label S03
+      - name: Add Label S03
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S03.outputs.group1 == 'S03' }}
         with:
           labels: |
-            Overlooking Documented Information (Human Error S03)
+            Overlooking Documented Information (HE S03)
             Slip (Failure of Attention)
           
       - name: Search S04
@@ -70,12 +70,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S04)
           flags: gm
-      - name: Label S04
+      - name: Add Label S04
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S04.outputs.group1 == 'S04' }}
         with:
           labels: |
-            Multitasking Errors (Human Error S04)
+            Multitasking Errors (HE S04)
             Slip (Failure of Attention)
           
       - name: Search S05
@@ -85,12 +85,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S05)
           flags: gm
-      - name: Label S05
+      - name: Add Label S05
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S05.outputs.group1 == 'S05' }}
         with:
           labels: |
-            Hardware Interaction Errors (Human Error S05)
+            Hardware Interaction Errors (HE S05)
             Slip (Failure of Attention)
           
       - name: Search S06
@@ -100,12 +100,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S06)
           flags: gm
-      - name: Label S06
+      - name: Add Label S06
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S06.outputs.group1 == 'S06' }}
         with:
           labels: |
-            Overlooking Proposed Code Changes (Human Error S06)
+            Overlooking Proposed Code Changes (HE S06)
             Slip (Failure of Attention)
           
       - name: Search S07
@@ -115,12 +115,12 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S07)
           flags: gm
-      - name: Label S07
+      - name: Add Label S07
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S07.outputs.group1 == 'S07' }}
         with:
           labels: |
-            Overlooking Existing Functionality (Human Error S07)
+            Overlooking Existing Functionality (HE S07)
             Slip (Failure of Attention)
           
       - name: Search S08
@@ -130,10 +130,10 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: \- \[x\] (S08)
           flags: gm
-      - name: Label S08
+      - name: Add Label S08
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ steps.regex-match-S08.outputs.group1 == 'S08' }}
         with:
           labels: |
-            General Attentional Failure (Human Error S08)
+            General Attentional Failure (HE S08)
             Slip (Failure of Attention)
