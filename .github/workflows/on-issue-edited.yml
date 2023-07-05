@@ -704,16 +704,25 @@ jobs:
             query issuetext($owner:String!, $repo:String!, $number:Int!) {
               repository(owner:$owner, name:$repo) {
                 thisIssue: issue(number:$number) {
-                  labels
+                  labels(first: 100) {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
                 }
               }
             }
           number: ${{ github.event.issue.number }}
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
-      - name: Format Labels
-        id: format-labels
+      - name: Comment Finished
+        id: comment-finished
         env:
-          LABELS: ${{ fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels }}
-        run: |
-          echo $LABELS
+          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ' }}
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: assessment
+          message: |
+            $LABELS
