@@ -724,7 +724,7 @@ jobs:
         id: comment-finished
         env:
           #LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
-          LABELS: ${{ fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name }}
+          LABELS: ${{ fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.*.name }}
         with:
           comment_tag: assessment
           message: |
