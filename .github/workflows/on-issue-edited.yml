@@ -698,7 +698,6 @@ jobs:
           flags: gm
       - name: Query Labels
         uses: octokit/graphql-action@v2.x
-        if: ${{ steps.regex-match-Finished.outputs.group1 == 'Finished' }}
         id: query-labels
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
