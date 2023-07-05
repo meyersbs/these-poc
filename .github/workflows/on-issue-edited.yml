@@ -719,11 +719,11 @@ jobs:
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
       - name: Comment Finished
+        uses: thollander/actions-comment-pull-request@v2
         if: ${{ steps.regex-match-Finished.outputs.match == 'Finished' }}
         id: comment-finished
         env:
           LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
-        uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: assessment
           message: |
