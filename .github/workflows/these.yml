@@ -123,6 +123,12 @@ jobs:
             ## Other
             - [ ] Other: Only use this category if none of the other categories describe your error.
 
+            # Step 3: Finished Categorizing
+            
+            When you are finished categorizing (checking boxes above), please check the following box:
+            
+            - [ ] Finished
+
             # Notes
             1. In **Step 0**, MistakeBot uses natural language processing ([cosine similarity with sentence-BERT](https://www.sbert.net/docs/package_reference/util.html#sentence_transformers.util.cos_sim)) to try and categorize your human error for you. This is an experimental feature and should be verified.
             2. The human error types in **Step 1** come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
