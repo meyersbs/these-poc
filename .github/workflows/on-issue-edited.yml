@@ -704,7 +704,7 @@ jobs:
             query issuetext($owner:String!, $repo:String!, $number:Int!) {
               repository(owner:$owner, name:$repo) {
                 thisIssue: issue(number:$number) {
-                  labels(first: 100) {
+                  labels(first: 100, orderBy: {field: NAME, direction: ASC}) {
                     edges {
                       node {
                         name
@@ -720,7 +720,7 @@ jobs:
       - name: Comment Finished
         id: comment-finished
         env:
-          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
+          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, '\n- ') }}
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: assessment
