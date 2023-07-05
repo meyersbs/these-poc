@@ -1,0 +1,140 @@
+name: T.H.E.S.E. MistakeBot (Apply Labels)
+
+on:
+  issue_comment:
+    types:
+      - edited
+
+jobs:
+  mistakebot_apply_label:
+    if contains( github.event.issue.labels.*.name, 'to-err-is-human')
+    runs-on: ubuntu-latest
+    
+    # SLIPS
+    steps:
+      - name: Search S01
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S01
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S01)
+          flags: gm
+      - name: Label S01
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S01.outputs.group1 == 'S01' }}
+        with:
+          labels: |
+            Typos & Misspellings (Human Error S01)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S02
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S02
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S02)
+          flags: gm
+      - name: Label S02
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S02.outputs.group1 == 'S02' }}
+        with:
+          labels: |
+            Syntax Errors (Human Error S02)
+            Slip (Failure of Attention)
+    
+    steps:
+      - name: Search S03
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S03
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S03)
+          flags: gm
+      - name: Label S03
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S03.outputs.group1 == 'S03' }}
+        with:
+          labels: |
+            Overlooking Documented Information (Human Error S03)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S04
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S04
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S04)
+          flags: gm
+      - name: Label S04
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S04.outputs.group1 == 'S04' }}
+        with:
+          labels: |
+            Multitasking Errors (Human Error S04)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S05
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S05
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S05)
+          flags: gm
+      - name: Label S05
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S05.outputs.group1 == 'S05' }}
+        with:
+          labels: |
+            Hardware Interaction Errors (Human Error S05)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S06
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S06
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S06)
+          flags: gm
+      - name: Label S06
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S06.outputs.group1 == 'S06' }}
+        with:
+          labels: |
+            Overlooking Proposed Code Changes (Human Error S06)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S07
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S07
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S07)
+          flags: gm
+      - name: Label S07
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S07.outputs.group1 == 'S07' }}
+        with:
+          labels: |
+            Overlooking Existing Functionality (Human Error S07)
+            Slip (Failure of Attention)
+          
+    steps:
+      - name: Search S08
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-S08
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (S08)
+          flags: gm
+      - name: Label S08
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-S08.outputs.group1 == 'S08' }}
+        with:
+          labels: |
+            General Attentional Failure (Human Error S08)
+            Slip (Failure of Attention)
