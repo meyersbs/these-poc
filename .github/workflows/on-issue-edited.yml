@@ -725,4 +725,4 @@ jobs:
         with:
           comment_tag: assessment
           message: |
-            $LABELS
+            ${{ env.LABELS }}
