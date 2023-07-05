@@ -7,11 +7,11 @@ on:
 
 jobs:
   mistakebot_apply_label:
-    if contains( github.event.issue.labels.*.name, 'to-err-is-human')
+    if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
     runs-on: ubuntu-latest
     
-    # SLIPS
     steps:
+      # SLIPS
       - name: Search S01
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S01
@@ -27,7 +27,6 @@ jobs:
             Typos & Misspellings (Human Error S01)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S02
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S02
@@ -43,7 +42,6 @@ jobs:
             Syntax Errors (Human Error S02)
             Slip (Failure of Attention)
     
-    steps:
       - name: Search S03
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S03
@@ -59,7 +57,6 @@ jobs:
             Overlooking Documented Information (Human Error S03)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S04
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S04
@@ -75,7 +72,6 @@ jobs:
             Multitasking Errors (Human Error S04)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S05
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S05
@@ -91,7 +87,6 @@ jobs:
             Hardware Interaction Errors (Human Error S05)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S06
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S06
@@ -107,7 +102,6 @@ jobs:
             Overlooking Proposed Code Changes (Human Error S06)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S07
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S07
@@ -123,7 +117,6 @@ jobs:
             Overlooking Existing Functionality (Human Error S07)
             Slip (Failure of Attention)
           
-    steps:
       - name: Search S08
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S08
