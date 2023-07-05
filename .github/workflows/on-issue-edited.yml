@@ -28,7 +28,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S01
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S01.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S01.outputs.match == '' }}
         with:
           labels: |
             Typos & Misspellings (HE S01)
@@ -49,11 +49,11 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S02
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S02.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S02.outputs.match == '' }}
         with:
           labels: |
             Syntax Errors (HE S02)
-    
+            
       - name: Search S03
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match-S03
@@ -70,7 +70,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S03
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S03.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S03.outputs.match == '' }}
         with:
           labels: |
             Overlooking Documented Information (HE S03)
@@ -91,7 +91,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S04
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S04.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S04.outputs.match == '' }}
         with:
           labels: |
             Multitasking Errors (HE S04)
@@ -112,7 +112,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S05
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S05.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S05.outputs.match == '' }}
         with:
           labels: |
             Hardware Interaction Errors (HE S05)
@@ -133,7 +133,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S06
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S06.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S06.outputs.match == '' }}
         with:
           labels: |
             Overlooking Proposed Code Changes (HE S06)
@@ -154,7 +154,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S07
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S07.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S07.outputs.match == '' }}
         with:
           labels: |
             Overlooking Existing Functionality (HE S07)
@@ -175,7 +175,7 @@ jobs:
             Slip (Failure of Attention)
       - name: Remove Label S08
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-S08.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-S08.outputs.match == '' }}
         with:
           labels: |
             General Attentional Failure (HE S08)
@@ -197,7 +197,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L01
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L01.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L01.outputs.match == '' }}
         with:
           labels: |
             Forgetting to Finish a Dev Task (HE L01)
@@ -218,7 +218,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L02
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L02.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L02.outputs.match == '' }}
         with:
           labels: |
             Forgetting to Fix a Defect (HE L02)
@@ -239,7 +239,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L03
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L03.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L03.outputs.match == '' }}
         with:
           labels: |
             Forgetting to Remove Dev Artifacts (HE L03)
@@ -260,7 +260,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L04
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L04.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L04.outputs.match == '' }}
         with:
           labels: |
             Working with Outdated Source Code (HE L04)
@@ -281,7 +281,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L05
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L05.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L05.outputs.match == '' }}
         with:
           labels: |
             Forgetting an Import Statement (HE L05)
@@ -302,7 +302,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L06
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L06.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L06.outputs.match == '' }}
         with:
           labels: |
             Forgetting to Save Work (HE L06)
@@ -323,7 +323,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L07
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L07.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L07.outputs.match == '' }}
         with:
           labels: |
             Forgetting Previous Dev Discussion (HE L07)
@@ -344,7 +344,7 @@ jobs:
             Lapse (Failure of Memory)
       - name: Remove Label L08
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-L08.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-L08.outputs.match == '' }}
         with:
           labels: |
             General Memory Failure (HE L08)
@@ -366,7 +366,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M01
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M01.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M01.outputs.match == '' }}
         with:
           labels: |
             Code Logic Errors (HE M01)
@@ -387,7 +387,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M02
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M02.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M02.outputs.match == '' }}
         with:
           labels: |
             Incomplete Domain Knowledge (HE M02)
@@ -408,7 +408,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M03
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M03.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M03.outputs.match == '' }}
         with:
           labels: |
             Wrong Assumption Errors (HE M03)
@@ -429,7 +429,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M04
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M04.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M04.outputs.match == '' }}
         with:
           labels: |
             Internal Communication Errors (HE M04)
@@ -447,10 +447,10 @@ jobs:
         with:
           labels: |
             External Communication Errors (HE M05)
-            Mistake (Failure of Planning)
+            Mistake (Failure of Planning)expression
       - name: Remove Label M05
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M05.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M05.outputs.match == '' }}
         with:
           labels: |
             External Communication Errors (HE M05)
@@ -471,7 +471,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M06
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M06.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M06.outputs.match == '' }}
         with:
           labels: |
             Solution Choice Errors (HE M06)
@@ -492,7 +492,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M07
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M07.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M07.outputs.match == '' }}
         with:
           labels: |
             Time Management Errors (HE M07)
@@ -513,7 +513,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M08
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M08.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M08.outputs.match == '' }}
         with:
           labels: |
             Inadequate Testing (HE M08)
@@ -534,7 +534,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M08
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M09.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M09.outputs.match == '' }}
         with:
           labels: |
             Incorrect/Insufficient Configuration (HE M09)
@@ -555,7 +555,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M18
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M10.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M10.outputs.match == '' }}
         with:
           labels: |
             Code Complexity Errors (HE M10)
@@ -576,7 +576,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M11
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M11.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M11.outputs.match == '' }}
         with:
           labels: |
             I18N/String Encoding Errors (HE M11)
@@ -597,7 +597,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M12
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M12.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M12.outputs.match == '' }}
         with:
           labels: |
             Inadequate Experience Errors (HE M12)
@@ -618,7 +618,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M13
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M13.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M13.outputs.match == '' }}
         with:
           labels: |
             Insufficient Tooling Access Errors (HE M13)
@@ -639,7 +639,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M14
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M14.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M14.outputs.match == '' }}
         with:
           labels: |
             Workflow Order Errors (HE M14)
@@ -660,7 +660,7 @@ jobs:
             Mistake (Failure of Planning)
       - name: Remove Label M15
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-M15.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-M15.outputs.match == '' }}
         with:
           labels: |
             General Planning Failure (HE M15)
@@ -681,7 +681,57 @@ jobs:
             Other (Human Error)
       - name: Remove Label Other
         uses: actions-ecosystem/action-remove-labels@v1
-        if: ${{ steps.regex-match-Other.outputs.group1 == '' }}
+        if: ${{ steps.regex-match-Other.outputs.match == '' }}
         with:
           labels: |
             Other (Human Error)
+            
+      # Finished
+      - name: Search Finished
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-Finished
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (Finished)
+          flags: gm
+      - name: Query Labels
+        uses: octokit/graphql-action@v2.x
+        if: ${{ steps.regex-match-Finished.outputs.group1 == 'Finished' }}
+        id: query-labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query issuetext($owner:String!, $repo:String!, $number:Int!) {
+              repository(owner:$owner, name:$repo) {
+                thisIssue: issue(number:$number) {
+                  labels(first: 100, orderBy: {field: NAME, direction: ASC}) {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          number: ${{ github.event.issue.number }}
+          repo: ${{ github.event.repository.name }}
+          owner: meyersbs
+      - name: Comment Finished
+        uses: thollander/actions-comment-pull-request@v2
+        if: ${{ steps.regex-match-Finished.outputs.group1 == 'Finished' }}
+        id: comment-finished
+        env:
+          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
+        with:
+          comment_tag: assessment
+          message: |
+            :microscope: You experienced the following human errors:
+            
+            > ${{ env.LABELS }}
+            
+            To get the most out of this human error assessment, please take some time to comment below with more details, such as:
+            - What went wrong?
+            - How did each human error that you experienced manifest in the source code?
+            - How can you avoid similar human errors in the future?
