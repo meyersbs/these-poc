@@ -47,6 +47,12 @@ jobs:
           labels: |
             Syntax Errors (HE S02)
             Slip (Failure of Attention)
+      - name: Remove Label S02
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S02.outputs.group1 == '' }}
+        with:
+          labels: |
+            Syntax Errors (HE S02)
     
       - name: Search S03
         uses: actions-ecosystem/action-regex-match@v2
@@ -62,6 +68,12 @@ jobs:
           labels: |
             Overlooking Documented Information (HE S03)
             Slip (Failure of Attention)
+      - name: Remove Label S03
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S03.outputs.group1 == '' }}
+        with:
+          labels: |
+            Overlooking Documented Information (HE S03)
           
       - name: Search S04
         uses: actions-ecosystem/action-regex-match@v2
@@ -77,6 +89,12 @@ jobs:
           labels: |
             Multitasking Errors (HE S04)
             Slip (Failure of Attention)
+      - name: Remove Label S04
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S04.outputs.group1 == '' }}
+        with:
+          labels: |
+            Multitasking Errors (HE S04)
           
       - name: Search S05
         uses: actions-ecosystem/action-regex-match@v2
@@ -92,6 +110,12 @@ jobs:
           labels: |
             Hardware Interaction Errors (HE S05)
             Slip (Failure of Attention)
+      - name: Remove Label S05
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S05.outputs.group1 == '' }}
+        with:
+          labels: |
+            Hardware Interaction Errors (HE S05)
           
       - name: Search S06
         uses: actions-ecosystem/action-regex-match@v2
@@ -107,6 +131,12 @@ jobs:
           labels: |
             Overlooking Proposed Code Changes (HE S06)
             Slip (Failure of Attention)
+      - name: Remove Label S06
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S06.outputs.group1 == '' }}
+        with:
+          labels: |
+            Overlooking Proposed Code Changes (HE S06)
           
       - name: Search S07
         uses: actions-ecosystem/action-regex-match@v2
@@ -122,6 +152,12 @@ jobs:
           labels: |
             Overlooking Existing Functionality (HE S07)
             Slip (Failure of Attention)
+      - name: Remove Label S07
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S07.outputs.group1 == '' }}
+        with:
+          labels: |
+            Overlooking Existing Functionality (HE S07)
           
       - name: Search S08
         uses: actions-ecosystem/action-regex-match@v2
@@ -137,3 +173,9 @@ jobs:
           labels: |
             General Attentional Failure (HE S08)
             Slip (Failure of Attention)
+      - name: Remove Label S08
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-S08.outputs.group1 == '' }}
+        with:
+          labels: |
+            General Attentional Failure (HE S08)
