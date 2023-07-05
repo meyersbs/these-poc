@@ -447,7 +447,7 @@ jobs:
         with:
           labels: |
             External Communication Errors (HE M05)
-            Mistake (Failure of Planning)
+            Mistake (Failure of Planning)expression
       - name: Remove Label M05
         uses: actions-ecosystem/action-remove-labels@v1
         if: ${{ steps.regex-match-M05.outputs.match == '' }}
@@ -696,6 +696,7 @@ jobs:
           flags: gm
       - name: Query Labels
         uses: octokit/graphql-action@v2.x
+        if: ${{ steps.regex-match-Finished.outputs.match == 'Finished' }}
         id: query-labels
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -718,11 +719,19 @@ jobs:
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
       - name: Comment Finished
+        if: ${{ steps.regex-match-Finished.outputs.match == 'Finished' }}
         id: comment-finished
         env:
-          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, '\n- ') }}
+          LABELS: ${{ join( fromJSON(steps.query-labels.outputs.data).repository.thisIssue.labels.edges[*].node.name, ', ') }}
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: assessment
           message: |
-            ${{ env.LABELS }}
+            :microscope: You experienced the following human errors:
+            
+            > ${{ env.LABELS }}
+            
+            To get the most out of this human error assessment, please take some time to comment below with more details, such as:
+            - What went wrong?
+            - How did each human error that you experienced manifest in the source code?
+            - How can you avoid similar human errors in the future?
