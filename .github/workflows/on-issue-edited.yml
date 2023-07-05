@@ -179,3 +179,172 @@ jobs:
         with:
           labels: |
             General Attentional Failure (HE S08)
+
+      # Lapses
+      - name: Search L01
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L01
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L01)
+          flags: gm
+      - name: Add Label L01
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L01.outputs.group1 == 'L01' }}
+        with:
+          labels: |
+            Forgetting to Finish a Dev Task (HE L01)
+            Lapse (Failure of Memory)
+      - name: Remove Label L01
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L01.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting to Finish a Dev Task (HE L01)
+          
+      - name: Search L02
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L02
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L02)
+          flags: gm
+      - name: Add Label L02
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L02.outputs.group1 == 'L02' }}
+        with:
+          labels: |
+            Forgetting to Fix a Defect (HE L02)
+            Lapse (Failure of Memory)
+      - name: Remove Label L02
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L02.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting to Fix a Defect (HE L02)
+    
+      - name: Search L03
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L03
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L03)
+          flags: gm
+      - name: Add Label L03
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L03.outputs.group1 == 'L03' }}
+        with:
+          labels: |
+            Forgetting to Remove Dev Artifacts (HE L03)
+            Lapse (Failure of Memory)
+      - name: Remove Label L03
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L03.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting to Remove Dev Artifacts (HE L03)
+          
+      - name: Search L04
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L04
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L04)
+          flags: gm
+      - name: Add Label L04
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L04.outputs.group1 == 'L04' }}
+        with:
+          labels: |
+            Working with Outdated Source Code (HE L04)
+            Lapse (Failure of Memory)
+      - name: Remove Label L04
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L04.outputs.group1 == '' }}
+        with:
+          labels: |
+            Working with Outdated Source Code (HE L04)
+          
+      - name: Search L05
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L05
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L05)
+          flags: gm
+      - name: Add Label L05
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L05.outputs.group1 == 'L05' }}
+        with:
+          labels: |
+            Forgetting an Import Statement (HE L05)
+            Lapse (Failure of Memory)
+      - name: Remove Label L05
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L05.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting an Import Statement (HE L05)
+          
+      - name: Search L06
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L06
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L06)
+          flags: gm
+      - name: Add Label L06
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L06.outputs.group1 == 'L06' }}
+        with:
+          labels: |
+            Forgetting to Save Work (HE L06)
+            Lapse (Failure of Memory)
+      - name: Remove Label L06
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L06.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting to Save Work (HE L06)
+          
+      - name: Search L07
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L07
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L07)
+          flags: gm
+      - name: Add Label L07
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L07.outputs.group1 == 'L07' }}
+        with:
+          labels: |
+            Forgetting Previous Dev Discussion (HE L07)
+            Lapse (Failure of Memory)
+      - name: Remove Label L07
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L07.outputs.group1 == '' }}
+        with:
+          labels: |
+            Forgetting Previous Dev Discussion (HE L07)
+          
+      - name: Search L08
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match-L08
+        with:
+          text: ${{ github.event.comment.body }}
+          regex: \- \[x\] (L08)
+          flags: gm
+      - name: Add Label L08
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ steps.regex-match-L08.outputs.group1 == 'L08' }}
+        with:
+          labels: |
+            General Memory Failure (HE L08)
+            Lapse (Failure of Memory)
+      - name: Remove Label L08
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ steps.regex-match-L08.outputs.group1 == '' }}
+        with:
+          labels: |
+            General Memory Failure (HE L08)
