@@ -53,54 +53,6 @@ jobs:
         with:
           labels: |
             Syntax Errors (HE S02)
-      - name: Query History S02
-        uses: octokit/graphql-action@v2.x
-        if: contains( github.event.issue.labels.*.name, 'Syntax Errors (HE S02)')
-        id: history-S02
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          query: |
-            query historyS02 {
-              search(type:ISSUE, last:10, query:"repo:meyersbs/these-poc label:\"Syntax Errors (HE S02)\"") {
-                edges {
-                  node {
-                    ... on Issue {
-                      title
-                      number
-                      url
-                    }
-                  }
-                }
-              }
-            }
-      - name: Assess S02
-        uses: thollander/actions-comment-pull-request@v2
-        if: contains( github.event.issue.labels.*.name, 'Syntax Errors (HE S02)')
-        id: assess-S02
-        with:
-          comment_tag: assess
-          message: |
-            :microscope: You indicated that you experienced **S02: Syntax Errors**. This is a _slip_, a failure of attention.
-            
-            Any past experiences of this human error will be displayed below:
-            
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[0].node.number, fromJSON(steps.history-S01.outputs.data).edges[0].node.url, fromJSON(steps.history-S01.outputs.data).edges[0].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[1].node.number, fromJSON(steps.history-S01.outputs.data).edges[1].node.url, fromJSON(steps.history-S01.outputs.data).edges[1].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[2].node.number, fromJSON(steps.history-S01.outputs.data).edges[2].node.url, fromJSON(steps.history-S01.outputs.data).edges[2].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[3].node.number, fromJSON(steps.history-S01.outputs.data).edges[3].node.url, fromJSON(steps.history-S01.outputs.data).edges[3].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[4].node.number, fromJSON(steps.history-S01.outputs.data).edges[4].node.url, fromJSON(steps.history-S01.outputs.data).edges[4].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[5].node.number, fromJSON(steps.history-S01.outputs.data).edges[5].node.url, fromJSON(steps.history-S01.outputs.data).edges[5].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[6].node.number, fromJSON(steps.history-S01.outputs.data).edges[6].node.url, fromJSON(steps.history-S01.outputs.data).edges[6].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[7].node.number, fromJSON(steps.history-S01.outputs.data).edges[7].node.url, fromJSON(steps.history-S01.outputs.data).edges[7].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[8].node.number, fromJSON(steps.history-S01.outputs.data).edges[8].node.url, fromJSON(steps.history-S01.outputs.data).edges[8].node.title) }}
-            - ${{ format('[{0}]({1}): {2}', fromJSON(steps.history-S01.outputs.data).edges[9].node.number, fromJSON(steps.history-S01.outputs.data).edges[9].node.url, fromJSON(steps.history-S01.outputs.data).edges[9].node.title) }}
-            
-            Please take a moment to reflect on the human error you experienced. In the box below, please elaborate on what happened and discuss how your could avoid this human error in the future.
-            
-            ```
-            # Your comments go here
-            ```
             
       - name: Search S03
         uses: actions-ecosystem/action-regex-match@v2
