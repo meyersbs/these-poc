@@ -733,5 +733,6 @@ jobs:
             
             To get the most out of this human error assessment, please take some time to comment below with more details, such as:
             - What went wrong?
+            - If you selected a _general_ category of human error, why doesn't it fit with an existing category and what would you call it?
             - How did each human error that you experienced manifest in the source code?
             - How can you avoid similar human errors in the future?
