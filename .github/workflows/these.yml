@@ -1,4 +1,4 @@
-name: T.H.E.S.E. MistakeBot
+name: T.H.E.S.E. MistakeBot (Categorize)
 
 on:
   issues:
@@ -121,7 +121,7 @@ jobs:
             - [ ] M15 **General Planning Failure**: Only use this category if you believe your error to be the result of a planning failure, but no other mistake category fits.
 
             ## Other
-            - [ ] **Other**: Only use this category if none of the other categories describe your error.
+            - [ ] Other: Only use this category if none of the other categories describe your error.
 
             # Notes
             1. In **Step 0**, MistakeBot uses natural language processing ([cosine similarity with sentence-BERT](https://www.sbert.net/docs/package_reference/util.html#sentence_transformers.util.cos_sim)) to try and categorize your human error for you. This is an experimental feature and should be verified.
