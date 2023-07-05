@@ -675,7 +675,7 @@ jobs:
           flags: gm
       - name: Add Label Other
         uses: actions-ecosystem/action-add-labels@v1
-        if: ${{ steps.regex-match-M10.outputs.group1 == 'Other' }}
+        if: ${{ steps.regex-match-Other.outputs.group1 == 'Other' }}
         with:
           labels: |
             Other (Human Error)
