@@ -9,8 +9,6 @@ jobs:
   mistakebot:
     if: contains( github.event.issue.labels.*.name, 'to-err-is-human')
     runs-on: ubuntu-latest
-    container:
-      image: meyersbs/these-poc:main
 
     steps:
       - name: Closing Remarks
