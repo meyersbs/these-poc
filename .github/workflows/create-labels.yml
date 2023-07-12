@@ -36,12 +36,7 @@ jobs:
         with:
           query: |
             mutation blah($repo:ID!, $color:String!, $name:String!) {
-              createLabel(input: {repositoryId:$repo, name:$name, color:$color}) {
-                label {
-                  id
-                  name
-                }
-              }
+              createLabel(input: {repositoryId:$repo, name:$name, color:$color})
             }
           repo: ${{ github.repository_id }}
           name: blah
