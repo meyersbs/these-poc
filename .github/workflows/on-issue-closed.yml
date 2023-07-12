@@ -18,7 +18,7 @@ jobs:
           message: |
             :microscope: Congratulations on assessing your human errors!
             
-            If you wish to keep using **MistakeBot**, just add the `to-err-is-human` label to any issue get started.
+            If you wish to keep using the **Human Error Reflection Engine (H.E.R.E.)**, just add the `to-err-is-human` label to any issue get started.
             
             > _"Mistakes are the portals of discovery."_ ~ James Joyce
             
