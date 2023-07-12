@@ -32,7 +32,7 @@ jobs:
         id: create-to-err-is-human
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LABELS: ${{ fromJSON(steps.issue-text.outputs.data).repository.labels }}
+          LABELS: ${{ join( fromJSON(steps.issue-text.outputs.data).repository.labels.*.node.name, ', ' ) }}
         if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
         run: |
           echo $LABELS
