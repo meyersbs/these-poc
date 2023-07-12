@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: H.E.R.E. (Build Docker Image)
 
 on:
   push:
