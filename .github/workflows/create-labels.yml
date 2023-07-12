@@ -1,4 +1,4 @@
-name: Human Error Reflection Engine (H.E.R.E.) (Verify Labels)
+name: H.E.R.E. (Create Labels)
 
 on:
   workflow_dispatch
@@ -6,34 +6,192 @@ on:
 jobs:
   mistakebot:
     runs-on: ubuntu-latest
+    env:
+      GH_REPO: meyersbs/projects
     steps:
-      - name: Query Labels
-        uses: octokit/graphql-action@v2.x
-        id: query-labels
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          query: |
-            query getlabels($owner:String!, $repo:String!) { 
-              repository(owner:$owner, name:$repo) {
-                labels(first: 100) {
-                  edges {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          repo: ${{ github.event.repository.name }}
-          owner: meyersbs
-      - name: Create to-err-is-human
+      - name: Create to-err-is-human Label
         id: create-to-err-is-human
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: meyersbs/these-poc
-        if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
-        run: |
-          gh help environment
-          gh label create "blah" --color "d73a4a"
-
+          LABEL_NAME: 'to-err-is-human'
+          LABEL_COLOR: '0E8A16'
+        run: gh label create 'to-err-is-human' --color '0E8A16' --description 'Enable Human Error Reflection Engine (H.E.R.E.)' --force
+      # Slips
+      - name: Create Slip Label
+        id: create-slip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Slip (Failure of Attention)' --color 'E1C982' --description 'Human Error Type' --force
+      - name: Create S01 Label
+        id: create-S01
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Typos & Misspellings (HE S01)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S02 Label
+        id: create-S02
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Syntax Errors (HE S02)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S03 Label
+        id: create-S03
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Overlooking Documented Information (HE S03)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S04 Label
+        id: create-S04
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Multitasking Errors (HE S04)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S05 Label
+        id: create-S05
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Hardware Interaction Errors (HE S05)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S06 Label
+        id: create-S06
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Overlooking Proposed Code Changes (HE S06)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S07 Label
+        id: create-S07
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Overlooking Existing Functionality (HE S07)' --color 'E1C982' --description 'Human Error Category' --force
+      - name: Create S08 Label
+        id: create-S08
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'General Attentional Failure (HE S08)' --color 'E1C982' --description 'Human Error Category' --force
+      # Lapses
+      - name: Create Lapse Label
+        id: create-lapse
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Lapse (Failure of Memory)' --color '9731AB' --description 'Human Error Type' --force
+      - name: Create L01 Label
+        id: create-L01
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting to Finish a Dev Task (HE L01)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L02 Label
+        id: create-L02
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting to Fix a Defect (HE L02)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L03 Label
+        id: create-L03
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting to Remove Dev Artifacts (HE L03)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L04 Label
+        id: create-L04
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Working with Outdated Source Code (HE L04)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L05 Label
+        id: create-L05
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting a Import Statement (HE L05)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L06 Label
+        id: create-L06
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting to Save Work (HE L06)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L07 Label
+        id: create-L07
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Forgetting Previous Dev Discussion (HE L07)' --color '9731AB' --description 'Human Error Category' --force
+      - name: Create L08 Label
+        id: create-L08
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'General Memory Failure (HE L08)' --color '9731AB' --description 'Human Error Category' --force
+      # Mistakes
+      - name: Create Mistake Label
+        id: create-mistake
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Mistake (Failure of Planning)' --color 'D93F0B' --description 'Human Error Type' --force
+      - name: Create M01 Label
+        id: create-M01
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Code Logic Errors (HE M01)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M02 Label
+        id: create-M02
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Incomplete Domain Knowledge (HE M02)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M03 Label
+        id: create-M03
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Wrong Assumption Errors (HE M03)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M04 Label
+        id: create-M04
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Internal Communication Errors (HE M04)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M05 Label
+        id: create-M05
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'External Communication Errors (HE M05)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M06 Label
+        id: create-M06
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Solution Choice Errors (HE M06)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M07 Label
+        id: create-M07
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Time Management Errors (HE M07)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M08 Label
+        id: create-M08
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Inadequate Testing (HE M08)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M09 Label
+        id: create-M09
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Incorrect/Insufficient Configuration (HE M09)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M10 Label
+        id: create-M10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Code Complexity Errors (HE M10)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M11 Label
+        id: create-M11
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'I18N/String Encoding Errors (HE M11)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M12 Label
+        id: create-M12
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Inadequate Experience Errors (HE M12)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M13 Label
+        id: create-M13
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Insufficient Tooling Access Errors (HE M13)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M14 Label
+        id: create-M14
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Workflow Order Errors (HE M14)' --color 'D93F0B' --description 'Human Error Category' --force
+      - name: Create M15 Label
+        id: create-M15
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'General Planning Failure (HE M15)' --color 'D93F0B' --description 'Human Error Category' --force
+      # Other
+      - name: Create Other Label
+        id: create-other
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create 'Other (Human Error)' --color '006B75' --description 'Human Error Type' --force
