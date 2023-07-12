@@ -43,10 +43,9 @@ jobs:
                 }
               }
             }
-          with:
-            repo: ${{ github.repository_id }}
-            name: blah
-            color: d73a4a
+          repo: ${{ github.repository_id }}
+          name: blah
+          color: d73a4a
 
 
 
