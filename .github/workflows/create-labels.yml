@@ -32,7 +32,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
-        run: |
-          gh label create "blah"
-          --color d73a4a
+        run: gh label create "blah" --color "d73a4a"
 
