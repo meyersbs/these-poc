@@ -32,7 +32,7 @@ jobs:
         id: create-to-err-is-human
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LABELS: ${{ steps.query-labels.repository.labels.*.node.name }}
+          LABELS: ${{ steps.query-labels.repository.labels.edges[0].node.name }}
         if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
         run:
           echo $LABELS
