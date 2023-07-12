@@ -28,19 +28,11 @@ jobs:
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
       - name: Create to-err-is-human
-        uses: octokit/graphql-action@v2.x
         id: create-to-err-is-human
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
-        with:
-          query: |
-            mutation blah($repo:ID!, $color:String!, $name:String!) {
-              createLabel(input: {repositoryId:$repo, name:$name, color:$color})
-            }
-          repo: ${{ github.repository_id }}
-          name: blah
-          color: d73a4a
-
-
+        run: |
+          gh create label "blah"
+          --color d73a4a
 
