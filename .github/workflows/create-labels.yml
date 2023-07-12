@@ -1,0 +1,40 @@
+name: Human Error Reflection Engine (H.E.R.E.) (Verify Labels)
+
+on:
+  workflow_dispatch
+
+jobs:
+  mistakebot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Labels
+        uses: octokit/graphql-action@v2.x
+        id: query-labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query getlabels($owner:String!, $repo:String!) { 
+              repository(owner:$owner, name:$repo) {
+                labels(first: 100) {
+                  edges {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          repo: ${{ github.event.repository.name }}
+          owner: meyersbs
+      - name: Create to-err-is-human
+        uses: octokit/graphql-action@v2.x
+        id: create-to-err-is-human
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABELS: ${{ steps.query-labels.repository.labels.*.node.name }}
+        if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, "blah" ) }}
+        run:
+          echo $LABELS
+
+
