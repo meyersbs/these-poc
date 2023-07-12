@@ -1,4 +1,4 @@
-name: T.H.E.S.E. MistakeBot (Categorize)
+name: H.E.R.E. (Categorize)
 
 on:
   issues:
@@ -56,7 +56,7 @@ jobs:
         with:
           comment_tag: mistakes
           message: |
-            :microscope: Hello, there! I'm **MistakeBot**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was
+            :microscope: Hello, there! I'm the **Human Error Reflection Engine (H.E.R.E.)**. My purpose is to help you document and reflect on your **Human Errors**, actions that result in something that was
             
             > _"not intended by the actor; not desired by a set of rules or an external observer; or that led the task or system outside its acceptable limits [[Source](https://www.taylorfrancis.com/books/mono/10.1201/9781003070375/human-error-john-senders-neville-moray)]."_
 
@@ -132,6 +132,6 @@ jobs:
             - [ ] Finished
 
             # Notes
-            1. In **Step 0**, MistakeBot uses natural language processing ([cosine similarity with sentence-BERT](https://www.sbert.net/docs/package_reference/util.html#sentence_transformers.util.cos_sim)) to try and categorize your human error for you. This is an experimental feature and should be verified.
+            1. In **Step 0**, H.E.R.E. uses natural language processing ([cosine similarity with sentence-BERT](https://www.sbert.net/docs/package_reference/util.html#sentence_transformers.util.cos_sim)) to try and categorize your human error for you. This is an experimental feature and should be verified.
             2. The human error types in **Step 1** come from James Reason's Generic Error-Modelling System (GEMs). You can read more about slips, lapses, and mistakes [here]().
             3. The specific categories of human error in **Step 2** come from the Taxonomy of Human Errors in Software Engineering (T.H.E.S.E.). You can read more about T.H.E.S.E. [here]().
