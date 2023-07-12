@@ -35,7 +35,7 @@ jobs:
         if: ${{ !contains( steps.query-labels.repository.labels.*.node.name, 'blah' ) }}
         with:
           query: |
-            mutation createlabel($repo:String!, $color:String!, $name:String!) {
+            mutation blah($repo:ID!, $color:String!, $name:String!) {
               createLabel(input: {repositoryId:$repo, name:$name, color:$color}) {
                 label {
                   id
