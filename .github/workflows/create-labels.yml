@@ -28,7 +28,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           owner: meyersbs
       - name: Create to-err-is-human
-        uses: octokit/graphql-action@v2.x
+        #uses: octokit/graphql-action@v2.x
         id: create-to-err-is-human
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
