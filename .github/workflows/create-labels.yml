@@ -7,7 +7,7 @@ jobs:
   mistakebot:
     runs-on: ubuntu-latest
     env:
-      GH_REPO: meyersbs/projects
+      GH_REPO: meyersbs/these-poc
     steps:
       - name: Create to-err-is-human Label
         id: create-to-err-is-human
