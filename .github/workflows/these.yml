@@ -49,8 +49,7 @@ jobs:
         run: |
           cd /usr/src/app/
           echo $TEXT > text_to_classify.txt
-          echo "label=$(python3 these-classifier.py dirty precision text_to_classify.txt)" >> $GITHUB_OUTPUT
-          #echo "label=$(python3 these-classifier.py dirty precision '${{ fromJSON(steps.issue-text.outputs.data).repository.thisIssue.bodyText}}')" >> $GITHUB_OUTPUT
+          echo "label=$(python3 these-classifier.py text_to_classify.txt)" >> $GITHUB_OUTPUT
       - name: Comment on Issue
         uses: thollander/actions-comment-pull-request@v2
         with:
